@@ -1,5 +1,6 @@
 /* eslint-disable */
 const boatCreateDtoInType = shape({
+  id: mongoId().isRequired(),
   code: uu5String(255).isRequired(),
   boatType: oneOf(["yacht", "barga", "tanker", "containership"]),
   captainId: id().isRequired(),
@@ -24,5 +25,7 @@ const boatUpdateDtoInType = shape({
   boatType: oneOf(["yacht", "barga", "tanker", "containership"]),
   captainId: id().isRequired()
 });
+
+
 
 

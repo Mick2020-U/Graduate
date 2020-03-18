@@ -6,7 +6,6 @@ class BoatController {
   update(ucEnv) {
     return BoatAbl.update(ucEnv.getUri().getAwid(), ucEnv.getDtoIn(), ucEnv.getAuthorizationResult());
   }
-
   list(ucEnv) {
     return BoatAbl.list(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

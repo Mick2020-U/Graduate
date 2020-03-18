@@ -10,6 +10,12 @@ class PierMongo extends UuObjectDao {
   async create(uuObject) {
     return await super.insertOne(uuObject);
   }
+  async list(awid, pageInfo = {}) {
+    let filter = {
+      awid
+    };
+    return await super.find(filter, pageInfo);
+  }
 }
 
 module.exports = PierMongo;

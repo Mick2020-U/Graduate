@@ -10,7 +10,7 @@ class BoatMongo extends UuObjectDao {
     if (dtoIn.insurance) {
       return {
         awid,
-        insurance: dtoIn.insurance,
+        insurance: dtoIn.insurance
       };
     }
     return { awid };

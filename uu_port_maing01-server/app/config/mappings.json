@@ -30,6 +30,11 @@
         "realization": "api/controllers/PierController.create",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "pier/list": {
+        "realization": "api/controllers/PierController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }
