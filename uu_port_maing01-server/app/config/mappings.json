@@ -10,6 +10,11 @@
         "realization": "index.html",
         "httpMethod": "GET",
         "type": "UVE"
+      },
+      "boat/create": {
+        "realization": "api/controllers/BoatController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

@@ -6,6 +6,9 @@
       "schemaMap": {
         "portMain": {
           "realization": "dao/PortMainMongo"
+        },
+        "boat": {
+          "realization": "dao/BoatMongo"
         }
       }
     }
