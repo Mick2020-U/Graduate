@@ -20,6 +20,16 @@
         "realization": "api/controllers/BoatController.list",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "boat/update": {
+        "realization": "api/controllers/BoatController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "pier/create": {
+        "realization": "api/controllers/PierController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

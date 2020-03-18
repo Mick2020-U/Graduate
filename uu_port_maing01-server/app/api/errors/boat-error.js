@@ -40,7 +40,34 @@ const BoatList = {
   }
 };
 
+const UpdateBoat = {
+  UC_CODE: `${BOAT_ERROR_PREFIX}update/`,
+  InvalidDtoIn: class extends UuPortError {
+    constructor() {
+      super(...arguments);
+      this.code = `${UpdateBoat.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  BoatDaoUpdateFailed: class extends UuPortError {
+    constructor() {
+      super(...arguments);
+      this.code = `${UpdateBoat.UC_CODE}boatDaoUpdateFailed`;
+      this.message = "Update boat by boat Dao update failed.";
+    }
+  },
+  BoatDaoGetFailed: class extends UuPortError {
+    constructor() {
+      super(...arguments);
+      this.code = `${UpdateBoat.UC_CODE}boatDaoGetFailed`;
+      this.message = "Get boat by boat Dao get failed.";
+    }
+  }
+
+};
+
 module.exports = {
+  UpdateBoat,
   BoatList,
   CreateBoat
 };

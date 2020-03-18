@@ -9,6 +9,9 @@
         },
         "boat": {
           "realization": "dao/BoatMongo"
+        },
+        "pier": {
+          "realization": "dao/PierMongo"
         }
       }
     }

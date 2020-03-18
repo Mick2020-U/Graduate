@@ -12,7 +12,9 @@
       "init": ["AwidOwner"],
       "defaultUve": ["Public"],
       "boat/create": ["Public"],
-      "boat/list": ["Public"]
+      "boat/list": ["Public"],
+      "boat/update": ["Public"],
+      "pier/create": ["Public"]
     }
   }
 }

@@ -18,6 +18,16 @@ const WARNINGS = {
       message: "DtoIn contains unsupported keys."
     }
   },
+  updateBoat: {
+    unsupportedKeys: {
+      code: `${Errors.UpdateBoat.UC_CODE}unsupportedKeys`,
+      message: "DtoIn contains unsupported keys."
+    },
+    boatDoesNotExist: {
+      code: `${Errors.UpdateBoat.UC_CODE}boatDoesNotExist`,
+      message: "Boat does not exist."
+    }
+  },
 };
 
 class BoatAbl {
@@ -39,10 +49,10 @@ class BoatAbl {
       Errors.BoatList.InvalidDtoIn
     );
     dtoIn.awid = awid;
-
+    dtoIn.insurance = dtoIn.insurance || null;
     let dtoOut;
     try {
-      dtoOut = await this.dao.list(awid, dtoIn.pageInfo, sort, order);
+      dtoOut = await this.dao.list(awid, dtoIn, sort, order);
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         throw new Errors.BoatList.BoatDaoListFailed({ uuAppErrorMap }, e);
@@ -64,6 +74,8 @@ class BoatAbl {
     );
     dtoIn.awid = awid;
     dtoIn.state = "initial";
+    dtoIn.insurance = dtoIn.insurance || false;
+
     let dtoOut;
     try {
       dtoOut = await this.dao.create(dtoIn);
@@ -75,6 +87,45 @@ class BoatAbl {
     }
     dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
+  }
+
+  async update(awid, dtoIn) {
+    let validationResult = this.validator.validate("boatUpdateDtoInType", dtoIn);
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.updateBoat.unsupportedKeys.code,
+      Errors.UpdateBoat.InvalidDtoIn
+    );
+    let dtoOut = {};
+    try {
+      let findBoat = await this.dao.get(awid, dtoIn.id);
+
+      if (!findBoat) {
+        ValidationHelper.addWarning(
+          uuAppErrorMap,
+          WARNINGS.updateBoat.boatDoesNotExist.code,
+          WARNINGS.updateBoat.boatDoesNotExist.message,
+          {
+            boatId: dtoIn.id
+          }
+        );
+      }
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.UpdateBoat.BoatDaoGetFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
+    try {
+      dtoOut = await this.dao.update({ ...dtoIn, awid });
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.UpdateBoat.BoatDaoUpdateFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
+    return { ...dtoOut, uuAppErrorMap };
   }
 }
 
