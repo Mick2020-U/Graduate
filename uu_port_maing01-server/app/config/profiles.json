@@ -11,7 +11,8 @@
     "useCaseMap": {
       "init": ["AwidOwner"],
       "defaultUve": ["Public"],
-      "boat/create": ["Public"]
+      "boat/create": ["Public"],
+      "boat/list": ["Public"]
     }
   }
 }

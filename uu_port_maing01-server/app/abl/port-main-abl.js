@@ -28,7 +28,7 @@ class PortMainAbl {
     );
 
     // HDS 2
-    const schemas = ["portMain"];
+    const schemas = ["portMain", "boat"];
     let schemaCreateResults = schemas.map(async schema => {
       try {
         return await DaoFactory.getDao(schema).createSchema();

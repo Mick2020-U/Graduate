@@ -15,6 +15,11 @@
         "realization": "api/controllers/BoatController.create",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "boat/list": {
+        "realization": "api/controllers/BoatController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }
