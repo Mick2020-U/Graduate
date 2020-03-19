@@ -5,6 +5,7 @@ import "uu5g04-bricks";
 import Config from "../core/config/config.js";
 import Calls from "../calls";
 import Boat from "../core/boat";
+import PierInfo from "../core/pier-info";
 //@@viewOff:imports
 
 export const Pier = UU5.Common.VisualComponent.create({
@@ -39,8 +40,8 @@ export const Pier = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   _getJokeList(jokeList) {
-    return jokeList.map(joke => {
-      return <Joke joke={joke} key={joke.id} />;
+    return jokeList.map(info => {
+      return <PierInfo info={info} key={info.id} />;
     });
   },
   _showAlert() {
@@ -50,11 +51,11 @@ export const Pier = UU5.Common.VisualComponent.create({
         content: "yuyuyuy"
       });
   },
-  _openContextMenu(button, e) {
-    this._menu.open({
-      event: e
-    });
-  },
+  // _openContextMenu(button, e) {
+  //   this._menu.open({
+  //     event: e
+  //   });
+  // },
   //@@viewOff:private
   _openCreateBoatRoute() {
     UU5.Environment.setRoute("boatDetail");
@@ -100,10 +101,10 @@ export const Pier = UU5.Common.VisualComponent.create({
               return (
                 <UU5.Common.Fragment>
                   <UU5.Bricks.LanguageSelector displayedLanguages={["en", "cz"]} />
-                  <UU5.Bricks.Button colorSchema="green" onClick={this._openCreateBoatRoute}>
+                  {/*<UU5.Bricks.Button colorSchema="green" onClick={this._openCreateBoatRoute}>
                     <UU5.Bricks.Icon icon="mdi-plus" />
                     Create
-                  </UU5.Bricks.Button>
+                  </UU5.Bricks.Button>*/}
                   {/*<UU5.Bricks.Header*/}
                   {/*  tooltip={this.getLsiValue("jokesListHeader")}*/}
                   {/*  content={this.getLsiComponent("jokesListHeader")}*/}
@@ -113,7 +114,7 @@ export const Pier = UU5.Common.VisualComponent.create({
                   <UU5.Bricks.Div>
                     <UU5.Bricks.Row display="flex">
                       <UU5.Tiles.List
-                        tile={<Boat />}
+                        tile={<PierInfo />}
                         // tile={<Joke joke={{ ...data.item }} key={data.item.id}/>}
                         handleLoad={handleLoad}
                         data={data}
