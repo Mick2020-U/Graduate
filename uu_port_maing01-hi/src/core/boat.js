@@ -69,7 +69,8 @@ export const Boat = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-     // console.log(this.props, "props in boat");
+    // console.log(this.props, "props in boat");
+    const { code, boatType, src } = this.props;
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
         <UU5.Bricks.Button
@@ -83,9 +84,24 @@ export const Boat = UU5.Common.VisualComponent.create({
           style={{
             position: "absolute",
             right: "1%",
-            top: "2%"
+            bottom: "6%"
           }}
         />
+        <UU5.Bricks.Card
+          // header={<UU5.Bricks.Text content={code} classname={"uu5-common-singleline-ellipsis"}/>}
+          level={6}
+          bgStyle="outline"
+          className={"uu5-common-padding-s joke"}
+        >
+          {code && <UU5.Bricks.Text content={code} />}
+          {boatType && <UU5.Bricks.Text content={boatType} />}
+          <Plus4U5.Bricks.Image
+            style={{ display: "block", margin: "auto", width: "50%", background: "#f5f5f5" }}
+            src={src}
+            alt={"No-img"}
+          />
+          {/*{slots && <UU5.Bricks.Text content={slots} />}*/}
+        </UU5.Bricks.Card>
       </UU5.Bricks.Div>)
   }
   //@@viewOff:render

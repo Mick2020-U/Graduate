@@ -62,7 +62,6 @@ export const PierInfo = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    console.log(this.props);
     const { code, state, slots } = this.props.data;
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>

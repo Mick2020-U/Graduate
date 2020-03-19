@@ -88,7 +88,6 @@ export const Pier = UU5.Common.VisualComponent.create({
   //@@viewOn:render
   render() {
     const { code } = this.props;
-    console.log(this.props);
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
         <UU5.Common.ListDataManager onLoad={this._onLoad}>

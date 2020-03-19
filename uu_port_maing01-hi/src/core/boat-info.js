@@ -38,9 +38,26 @@ export const BoatInfo = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    const { code } = this.props;
+    console.log(this.props, "props at boat");
+    const {code, boatType, src} = this.props.data;
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
+
+        <UU5.Bricks.Card
+          // header={<UU5.Bricks.Text content={code} classname={"uu5-common-singleline-ellipsis"}/>}
+          level={6}
+          bgStyle="outline"
+          className={"uu5-common-padding-s joke"}
+        >
+          {code && <UU5.Bricks.Text content={code} />}
+          {boatType && <UU5.Bricks.Text content={boatType} />}
+          {/*{slots && <UU5.Bricks.Text content={slots} />}*/}
+          <Plus4U5.Bricks.Image
+            style={{ display: "block", margin: "auto", width: "50%", background: "#f5f5f5" }}
+            src={src}
+            alt={"No-img"}
+          />
+        </UU5.Bricks.Card>
       </UU5.Bricks.Div>
     );
   }
