@@ -12,6 +12,10 @@ const Lsi = {
     about: {
       cs: "O aplikaci",
       en: "About Application"
+    },
+    pier: {
+      cs: "pierc",
+      en: "pier"
     }
   },
 

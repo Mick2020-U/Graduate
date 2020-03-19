@@ -1,4 +1,4 @@
-//@viewOn:imports
+//@@viewOn:imports
 import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Plus4U5 from "uu_plus4u5g01";
@@ -88,6 +88,7 @@ export const Left = UU5.Common.VisualComponent.create({
         />
 
         <LeftLink route="about">{this.getLsiComponent("about")}</LeftLink>
+        <LeftLink route="pier">{this.getLsiComponent("pier")}</LeftLink>
       </UU5.Bricks.Div>
     );
   }

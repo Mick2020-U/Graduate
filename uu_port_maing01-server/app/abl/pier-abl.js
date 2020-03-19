@@ -41,7 +41,6 @@ class PierAbl {
     );
     let dtoOut = {};
     try {
-
       await this.dao.delete(awid, dtoIn.id);
     } catch (e) {
       if (e instanceof ObjectStoreError) {
@@ -49,9 +48,7 @@ class PierAbl {
       }
       throw e;
     }
-
     dtoOut.uuAppErrorMap = uuAppErrorMap;
-
     return dtoOut;
   }
 

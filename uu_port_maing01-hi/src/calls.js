@@ -16,6 +16,10 @@ let Calls = {
     let commandUri = Calls.getCommandUri("loadDemoContent");
     return Calls.call("get", commandUri, dtoIn);
   },
+  pierList(dtoIn) {
+    let commandUri = Calls.getCommandUri("pier/list");
+    return Calls.call("get", commandUri, dtoIn);
+  },
 
   /*
   For calling command on specific server, in case of developing client site with already deployed
