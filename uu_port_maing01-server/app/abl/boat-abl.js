@@ -27,7 +27,7 @@ const WARNINGS = {
       code: `${Errors.UpdateBoat.UC_CODE}boatDoesNotExist`,
       message: "Boat does not exist."
     }
-  },
+  }
 };
 
 class BoatAbl {

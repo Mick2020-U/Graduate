@@ -41,7 +41,26 @@ const PierList = {
 
 };
 
+const DeletePier = {
+  UC_CODE: `${PIER_ERROR_PREFIX}delete/`,
+  InvalidDtoIn: class extends UuPortError {
+    constructor() {
+      super(...arguments);
+      this.code = `${DeletePier.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  PierDaoDeleteFailed: class extends UuPortError {
+    constructor() {
+      super(...arguments);
+      this.code = `${DeletePier.UC_CODE}pierDaoDeleteFailed`;
+      this.message = "Delete pier by Dao delete failed.";
+    }
+  }
+};
+
 module.exports = {
+  DeletePier,
   PierList,
   CreatePier
 };

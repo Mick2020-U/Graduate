@@ -16,6 +16,9 @@ class PierMongo extends UuObjectDao {
     };
     return await super.find(filter, pageInfo);
   }
+  async delete(awid, id) {
+    return await super.deleteOne({ awid, id });
+  }
 }
 
 module.exports = PierMongo;

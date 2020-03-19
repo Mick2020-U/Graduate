@@ -1,7 +1,7 @@
 "use strict";
 const Path = require("path");
 const { Validator } = require("uu_appg01_server").Validation;
-const { DaoFactory } = require("uu_appg01_server").ObjectStore;
+const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/pier-error.js");
 
@@ -15,14 +15,44 @@ const WARNINGS = {
     unsupportedKeys: {
       code: `${Errors.PierList.UC_CODE}unsupportedKeys`
     }
+  },
+  deletePier: {
+    unsupportedKeys: {
+      code: `${Errors.PierList.UC_CODE}unsupportedKeys`,
+      message: "DtoIn contains unsupported keys."
+    }
   }
 };
 
 class PierAbl {
-
   constructor() {
     this.validator = new Validator(Path.join(__dirname, "..", "api", "validation_types", "pier-types.js"));
     this.dao = DaoFactory.getDao("pier");
+  }
+
+  async delete(awid, dtoIn) {
+    let validationResult = this.validator.validate("pierDeleteDtoInType", dtoIn);
+
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.deletePier.unsupportedKeys.code,
+      Errors.DeletePier.InvalidDtoIn
+    );
+    let dtoOut = {};
+    try {
+
+      await this.dao.delete(awid, dtoIn.id);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.DeletePier.PierDaoDeleteFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
+
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+
+    return dtoOut;
   }
 
   async list(awid, dtoIn, uuAppErrorMap = {}) {
