@@ -4,7 +4,6 @@ import "uu5tilesg01";
 import "uu5g04-bricks";
 import Config from "../core/config/config.js";
 import Calls from "../calls";
-import Boat from "../core/boat";
 import PierInfo from "../core/pier-info";
 //@@viewOff:imports
 
@@ -39,33 +38,33 @@ export const Pier = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _getJokeList(jokeList) {
-    return jokeList.map(info => {
-      return <PierInfo info={info} key={info.id} />;
-    });
-  },
-  _showAlert() {
+  /*    _getBoatList(boatList) {
+      return boatList.map(boat => {
+        return <UU5.Bricks.Card boat={boat} key={boat.pierId} />;
+      });
+    },*/
+  /*  _showAlert() {
     UU5.Environment.getPage()
       .getAlertBus()
       .setAlert({
         content: "yuyuyuy"
       });
-  },
+  },*/
   // _openContextMenu(button, e) {
   //   this._menu.open({
   //     event: e
   //   });
   // },
   //@@viewOff:private
-  _openCreateBoatRoute() {
+  /*  _openCreateBoatRoute() {
     UU5.Environment.setRoute("boatDetail");
-  },
+  },*/
   // _allowLeaving() {
   //   UU5.Environment.getRouter().allowPageLeave();
   // },
   _onLoad(newData) {
     return new Promise((resolve, reject) => {
-      Calls.pierList({
+      Calls.getBoatsByPierId({
         data: newData,
         done: dtoOut =>
           resolve({
@@ -86,9 +85,10 @@ export const Pier = UU5.Common.VisualComponent.create({
     });
   },
   //@@viewOff:private
-
   //@@viewOn:render
   render() {
+    const { code } = this.props;
+    console.log(this.props);
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
         <UU5.Common.ListDataManager onLoad={this._onLoad}>
@@ -100,7 +100,15 @@ export const Pier = UU5.Common.VisualComponent.create({
               // ready
               return (
                 <UU5.Common.Fragment>
-                  <UU5.Bricks.LanguageSelector displayedLanguages={["en", "cz"]} />
+                  <UU5.Bricks.Card
+                    // header={<UU5.Bricks.Text content={code} classname={"uu5-common-singleline-ellipsis"}/>}
+                    level={6}
+                    bgStyle="outline"
+                    className={"uu5-common-padding-s joke"}
+                  >
+                    {code && <UU5.Bricks.Text content={code} />}
+                    {/*{slots && <UU5.Bricks.Text content={slots} />}*/}
+                  </UU5.Bricks.Card>
                   {/*<UU5.Bricks.Button colorSchema="green" onClick={this._openCreateBoatRoute}>
                     <UU5.Bricks.Icon icon="mdi-plus" />
                     Create
@@ -112,16 +120,30 @@ export const Pier = UU5.Common.VisualComponent.create({
                   {/*  colorSchema="pink"*/}
                   {/*/>*/}
                   <UU5.Bricks.Div>
-                    <UU5.Bricks.Row display="flex">
+                    <UU5.Bricks.Button
+                      content={"Move to pier"}
+                      onClick={() => {
+                        UU5.Environment.setRoute({
+                          component: <PierInfo data={this.props} />,
+                          url: { useCase: "pier", parameters: { id: this.props.data.id } }
+                        });
+                      }}
+                      style={{
+                        position: "absolute",
+                        right: "1%",
+                        top: "2%"
+                      }}
+                    />
+                    <UU5.Bricks.Row>
                       <UU5.Tiles.List
                         tile={<PierInfo />}
                         // tile={<Joke joke={{ ...data.item }} key={data.item.id}/>}
                         handleLoad={handleLoad}
                         data={data}
-                        tileHeight={300}
+                        tileHeight={100}
                         tileMinWidth={220}
                         tileMaxWidth={400}
-                        tileSpacing={8}
+                        tileSpacing={1}
                         tileElevationHover={1}
                         tileBorder
                         tileStyle={{ borderRadius: 4 }}

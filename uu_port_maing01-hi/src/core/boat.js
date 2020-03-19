@@ -2,12 +2,13 @@
 import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
+import Calls from "../calls";
 import BoatInfo from "./boat-info";
 //@@viewOff:imports
 
 export const Boat = UU5.Common.VisualComponent.create({
   //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin],
+  mixins: [UU5.Common.BaseMixin, UU5.Common.RouteMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
@@ -42,41 +43,50 @@ export const Boat = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
+  _onLoad(newData) {
+    return new Promise((resolve, reject) => {
+      Calls.getBoatsByPierId({
+        data: newData,
+        done: dtoOut =>
+          resolve({
+            itemList: dtoOut.itemList,
+            pageInfo: dtoOut.pageInfo
+          }),
+        fail: dtoOut => {
+          // this._boatDetailForm.getForm().setReady();
+          UU5.Environment.getPage()
+            .getAlertBus()
+            .setAlert({
+              content: "Boat list failed!",
+              colorSchema: "danger"
+            });
+          reject(dtoOut);
+        }
+      });
+    });
+  },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
-    console.log(this.props, "props in boat");
-    const { code, boatType, pierId } = this.props.boat;
+     // console.log(this.props, "props in boat");
     return (
-      <UU5.Bricks.Card
-        // header={<UU5.Bricks.Text content={code} classname={"uu5-common-singleline-ellipsis"}/>}
-        // footer={<UU5.Bricks.Button content="open Detail" onClick={this._openJokeDetail}/>}
-        level={6}
-        bgStyle="outline"
-        className={"uu5-common-padding-s joke"}
-      >
-        {code && <UU5.Bricks.Text content={code} />}
-        {boatType && <UU5.Bricks.Text content={boatType} />}
-        {/*<UU5.Bricks.Button
-          content={"click"}
+      <UU5.Bricks.Div {...this.getMainPropsToPass()}>
+        <UU5.Bricks.Button
+          content={"Move to boat"}
           onClick={() => {
             UU5.Environment.setRoute({
-              component: <BoatInfo data={this.props}/>,
-              url: { useCase: "", parameters: { id: this.props.data.id } }
+              component: <BoatInfo data={this.props} />,
+              url: { useCase: "boat", parameters: { id: this.props.data.id } }
             });
           }}
           style={{
             position: "absolute",
-            right: "80%",
+            right: "1%",
             top: "2%"
           }}
-        />*/}
-        {/*{this.props.joke.image &&*/}
-        {/*<UU5.Bricks.Text content={this.props.joke.image}*/}
-        {/*       tooltip={this.props.joke.image}*/}
-        {/*      level={6} classname={"uu5-common-singleline-ellipsis"}/>*/}
-      </UU5.Bricks.Card>)
+        />
+      </UU5.Bricks.Div>)
   }
   //@@viewOff:render
 });

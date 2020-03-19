@@ -88,7 +88,7 @@ export const Left = UU5.Common.VisualComponent.create({
         />
 
         <LeftLink route="about">{this.getLsiComponent("about")}</LeftLink>
-        <LeftLink route="pier">{this.getLsiComponent("pier")}</LeftLink>
+        <LeftLink route="port">{this.getLsiComponent("port")}</LeftLink>
       </UU5.Bricks.Div>
     );
   }

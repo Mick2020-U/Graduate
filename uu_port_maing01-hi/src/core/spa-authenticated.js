@@ -11,6 +11,8 @@ import Bottom from "./bottom.js";
 import About from "../routes/about.js";
 import Home from "../routes/home.js";
 import Pier from "../routes/pier";
+import Port from "../routes/port";
+import Boat from "./boat";
 //@@viewOff:imports
 
 const SpaAuthenticated = UU5.Common.VisualComponent.create({
@@ -70,10 +72,12 @@ const SpaAuthenticated = UU5.Common.VisualComponent.create({
       >
         <UU5.Common.Router
           routes={{
-            "": "home",
+            "": "port",
             home: { component: <Home identity={this.props.identity} /> },
             about: { component: <About identity={this.props.identity} /> },
-            pier: { component: <Pier identity={this.props.identity} /> }
+            port: { component: <Port identity={this.props.identity} /> },
+            pier: { component: <Pier identity={this.props.identity} /> },
+            boat: { component: <Boat identity={this.props.identity} /> }
           }}
           controlled={false}
         />

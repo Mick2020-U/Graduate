@@ -13,9 +13,9 @@ const Lsi = {
       cs: "O aplikaci",
       en: "About Application"
     },
-    pier: {
-      cs: "pierc",
-      en: "pier"
+    port: {
+      cs: "port",
+      en: "port"
     }
   },
 

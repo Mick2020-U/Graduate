@@ -6,7 +6,7 @@ import Config from "./config/config.js";
 
 export const BoatInfo = UU5.Common.VisualComponent.create({
   //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin],
+  mixins: [UU5.Common.BaseMixin, UU5.Common.RouteMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
@@ -38,7 +38,11 @@ export const BoatInfo = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    return <UU5.Bricks.Div {...this.getMainPropsToPass()}>Component {this.getTagName()}</UU5.Bricks.Div>;
+    const { code } = this.props;
+    return (
+      <UU5.Bricks.Div {...this.getMainPropsToPass()}>
+      </UU5.Bricks.Div>
+    );
   }
   //@@viewOff:render
 });
