@@ -48,8 +48,8 @@ export const Port = UU5.Common.VisualComponent.create({
   render() {
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-        <UU5.Common.ListDataManager onLoad={Calls.pierList}>
-          {({ viewState, errorState, errorData, data, handleCreate, handleLoad }) => {
+        <UU5.Common.ListDataManager onLoad={Calls.pierList} onDelete={Calls.deletePier}>
+          {({ viewState, errorState, errorData, data, handleCreate, handleLoad, handleDelete }) => {
             if (errorState) {
               // error
               return <UU5.Bricks.Error errorData={errorData} />;
@@ -61,7 +61,31 @@ export const Port = UU5.Common.VisualComponent.create({
                   <UU5.Bricks.LanguageSelector displayedLanguages={["en", "cz"]} />
                   <UU5.Bricks.Row display="flex">
                     {data.map(item => (
-                   <Pier item={item} key={item.id}/>
+                      <UU5.Common.Fragment key={UU5.Common.Tools.generateUUID(8)}>
+                        <UU5.Bricks.Column
+                          style={{
+                            position: "relative"
+                          }}
+                        >
+                          <UU5.Bricks.Button
+                            style={{
+                              position: "absolute",
+                              background: "#f08080",
+                              right: "67%",
+                              top: "2%"
+                            }}
+                            content="&times;"
+                            onClick={() => {
+                              handleDelete(item.id).then(res => {
+                                console.log(res, "delete");
+                              });
+                            }}
+                          >
+                            Delete
+                          </UU5.Bricks.Button>
+                          <Pier item={item} key={item.id} />
+                        </UU5.Bricks.Column>
+                      </UU5.Common.Fragment>
                     ))}
                   </UU5.Bricks.Row>
                 </UU5.Bricks.Resize>

@@ -71,6 +71,13 @@ let Calls = {
       });
     });
   },
+
+  deletePier(id) {
+    let commandUri = Calls.getCommandUri("pier/delete");
+    return new Promise((resolve, reject) => {
+      Calls.call("get", commandUri, { id });
+    });
+  },
   /*
   For calling command on specific server, in case of developing client site with already deployed
   server in uuCloud etc. You can specify url of this application (or part of url) in development

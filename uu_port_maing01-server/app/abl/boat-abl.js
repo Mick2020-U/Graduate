@@ -95,7 +95,6 @@ class BoatAbl {
     dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
   }
-
   async update(awid, dtoIn) {
     let validationResult = this.validator.validate("boatUpdateDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
