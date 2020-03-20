@@ -60,6 +60,11 @@
         "realization": "api/controllers/PierController.boats",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "boat/detail": {
+        "realization": "api/controllers/BoatController.detail",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

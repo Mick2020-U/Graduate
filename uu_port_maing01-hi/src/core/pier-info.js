@@ -34,10 +34,10 @@ export const PierInfo = UU5.Common.VisualComponent.create({
       currentBoat: {}
     };
   },*/
-  async componentDidMount() {
+/*  async componentDidMount() {
     let res = await Calls.boatsById("5e73620c5ae50e7a722e0149");
     // console.log(res, "res");
-  },
+  },*/
   //@@viewOff:reactLifeCycle
 
   //@@viewOn:interface

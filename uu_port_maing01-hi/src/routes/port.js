@@ -37,11 +37,10 @@ export const Port = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  /*  _getPierList(pierList) {
-    return pierList.map(pier => {
-      return <Pier pier={pier} key={pier.id} />;
-    });
-  },*/
+  _openCreateBoatDetail() {
+    // console.log(UU5.Environment, "look at environment");
+    UU5.Environment.setRoute("boatDetail");
+  },
   //@@viewOff:private
 
   //@@viewOn:render
@@ -59,6 +58,10 @@ export const Port = UU5.Common.VisualComponent.create({
               return (
                 <UU5.Bricks.Resize>
                   <UU5.Bricks.LanguageSelector displayedLanguages={["en", "cz"]} />
+                  <UU5.Bricks.Button colorSchema="green" onClick={this._openCreateBoatDetail}>
+                    <UU5.Bricks.Icon icon="mdi-plus"/>
+                    Create
+                  </UU5.Bricks.Button>
                   <UU5.Bricks.Row display="flex">
                     {data.map(item => (
                       <UU5.Common.Fragment key={UU5.Common.Tools.generateUUID(8)}>
@@ -67,23 +70,7 @@ export const Port = UU5.Common.VisualComponent.create({
                             position: "relative"
                           }}
                         >
-                          <UU5.Bricks.Button
-                            style={{
-                              position: "absolute",
-                              background: "#f08080",
-                              right: "67%",
-                              top: "2%"
-                            }}
-                            content="&times;"
-                            onClick={() => {
-                              handleDelete(item.id).then(res => {
-                                console.log(res, "delete");
-                              });
-                            }}
-                          >
-                            Delete
-                          </UU5.Bricks.Button>
-                          <Pier item={item} key={item.id} />
+                          <Pier item={item} key={item.id} handleDelete={handleDelete} />
                         </UU5.Bricks.Column>
                       </UU5.Common.Fragment>
                     ))}

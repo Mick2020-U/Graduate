@@ -36,6 +36,10 @@ class BoatAbl {
     this.dao = DaoFactory.getDao("boat");
   }
 
+  async detail(awid, dtoIn) {
+    
+  }
+
   async get(awid, dtoIn) {
     return await this.dao.get(awid, dtoIn.id);
   }

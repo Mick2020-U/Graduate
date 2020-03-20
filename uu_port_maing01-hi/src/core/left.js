@@ -8,6 +8,9 @@ import Config from "./config/config.js";
 import Lsi from "../config/lsi.js";
 import Tools from "./tools.js";
 import LeftLink from "../bricks/left-link.js";
+import Calls from "../calls";
+import Pier from "../routes/pier";
+//@@viewOff:imports
 //@viewOff:imports
 
 //@viewOn:static
@@ -62,7 +65,15 @@ export const Left = UU5.Common.VisualComponent.create({
   _getItems() {
     return [{ code: "home", content: this.getLsiComponent("home") }];
   },
-
+  //@@viewOff:private
+  //@@viewOn:interface
+  async getPapers() {
+    let res = await Calls.pierList();
+    console.log(res, "getPapers");
+    return res;
+  },
+  //@@viewOff:interface
+  //@@viewOn:private
   _onItemClick(item, e) {
     Tools.setRoute(item);
   },
@@ -86,7 +97,6 @@ export const Left = UU5.Common.VisualComponent.create({
           onWheelClick={Tools.openNewTab}
           onCtrlClick={Tools.openNewTab}
         />
-
         <LeftLink route="about">{this.getLsiComponent("about")}</LeftLink>
         <LeftLink route="port">{this.getLsiComponent("port")}</LeftLink>
       </UU5.Bricks.Div>

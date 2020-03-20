@@ -81,7 +81,13 @@ const Get = {
   
 };
 
+const Detail = {
+  UC_CODE: `${BOAT_ERROR_PREFIX}detail/`,
+  
+};
+
 module.exports = {
+  Detail,
   Get,
   ListByPier,
   ListById,
