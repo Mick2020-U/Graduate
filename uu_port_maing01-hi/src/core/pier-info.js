@@ -47,12 +47,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
   },
   async loadBoats() {
     let query = this.props.params.id || this.props.data.item.id;
-    return await Calls.boatsById(query);
-  },
-  async test() {
-    let query = "5e73620c5ae50e7a722e0149";
     let res = await Calls.boatsById(query);
-    console.log(res, "look at response");
     return res.boats.itemList;
   },
   //@@viewOff:interface
@@ -74,20 +69,20 @@ export const PierInfo = UU5.Common.VisualComponent.create({
               let { code, state, slots } = data.pier;
               return (
                 <UU5.Bricks.Card>
-                  {code && <UU5.Bricks.Text content={code} />}
-                  {state && <UU5.Bricks.Text content={state} />}
+                  {code && <UU5.Bricks.Text content={code}/>}
+                  {state && <UU5.Bricks.Text content={state}/>}
                   {/*{slots && <UU5.Bricks.Text content={slots} />}*/}
                 </UU5.Bricks.Card>
               );
             } else {
-              return <UU5.Bricks.Loading />;
+              return <UU5.Bricks.Loading/>;
             }
           }}
         </UU5.Common.DataManager>
 
         <UU5.Common.ListDataManager
-          onLoad={this.test}
-          onReload={this.test}
+          onLoad={this.loadBoats}
+          onReload={this.loadBoats}
           onCreate={Calls.create}
           onUpdate={Calls.update}
           onDelete={Calls.delete}
@@ -175,7 +170,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
               );
             } else {
               // loading
-              return <UU5.Bricks.Loading />;
+              return <UU5.Bricks.Loading/>;
             }
           }}
         </UU5.Common.ListDataManager>

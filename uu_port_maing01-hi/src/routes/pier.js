@@ -41,32 +41,9 @@ export const Pier = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   //@@viewOff:private
-  _onLoad(newData) {
-    return new Promise((resolve, reject) => {
-      Calls.getBoatsByPierId({
-        data: newData,
-        done: dtoOut =>
-          resolve({
-            itemList: dtoOut.itemList,
-            pageInfo: dtoOut.pageInfo
-          }),
-        fail: dtoOut => {
-          // this._boatDetailForm.getForm().setReady();
-          UU5.Environment.getPage()
-            .getAlertBus()
-            .setAlert({
-              content: "Boat list failed!",
-              colorSchema: "danger"
-            });
-          reject(dtoOut);
-        }
-      });
-    });
-  },
   //@@viewOff:private
   //@@viewOn:render
   render() {
-
     const { code, state, slots, typeOfBoats, id, empty } = this.props.item;
     return (
       <UU5.Bricks.Column className="wrapper" colWidth="m-6 l-4 xl-3">

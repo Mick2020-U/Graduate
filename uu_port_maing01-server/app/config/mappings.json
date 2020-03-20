@@ -26,6 +26,11 @@
         "httpMethod": "POST",
         "type": "CMD"
       },
+      "boat/listByPier": {
+        "realization": "api/controllers/BoatController.listByPier",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
       "pier/create": {
         "realization": "api/controllers/PierController.create",
         "httpMethod": "POST",
@@ -48,11 +53,6 @@
       },
       "pier/boats": {
         "realization": "api/controllers/PierController.boats",
-        "httpMethod": "GET",
-        "type": "CMD"
-      },
-      "boat/listByPier": {
-        "realization": "api/controllers/BoatController.listByPier",
         "httpMethod": "GET",
         "type": "CMD"
       }

@@ -3,6 +3,7 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
 import Calls from "../calls";
+import BoatInfo from "./boat-info";
 //@@viewOff:imports
 
 export const Boat = UU5.Common.VisualComponent.create({
@@ -69,14 +70,22 @@ export const Boat = UU5.Common.VisualComponent.create({
   //@@viewOn:render
   render() {
     console.log(this.props, "props in boat");
-    let { code, boatType, insurance } = this.props.data;
+    let { code, boatType, insurance, id } = this.props.data;
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
         <UU5.Bricks.Card>
+          <UU5.Bricks.Button
+            content={"Move to Boat"}
+            onClick={() => {
+              UU5.Environment.setRoute({
+                component: <BoatInfo data={this.props} />,
+                url: { useCase: "boatInfo", parameters: { id } }
+              });
+            }}
+          />
           {code && <UU5.Bricks.Text content={code} />}
           {boatType && <UU5.Bricks.Text content={boatType} />}
           {insurance && <UU5.Bricks.Text content={insurance} />}
-          {/*{slots && <UU5.Bricks.Text content={slots} />}*/}
         </UU5.Bricks.Card>
       </UU5.Bricks.Div>
     );
