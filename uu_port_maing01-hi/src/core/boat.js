@@ -3,7 +3,6 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
 import Calls from "../calls";
-import BoatInfo from "./boat-info";
 //@@viewOff:imports
 
 export const Boat = UU5.Common.VisualComponent.create({
@@ -43,66 +42,44 @@ export const Boat = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _onLoad(newData) {
-    return new Promise((resolve, reject) => {
-      Calls.getBoatsByPierId({
-        data: newData,
-        done: dtoOut =>
-          resolve({
-            itemList: dtoOut.itemList,
-            pageInfo: dtoOut.pageInfo
-          }),
-        fail: dtoOut => {
-          // this._boatDetailForm.getForm().setReady();
-          UU5.Environment.getPage()
-            .getAlertBus()
-            .setAlert({
-              content: "Boat list failed!",
-              colorSchema: "danger"
-            });
-          reject(dtoOut);
-        }
-      });
-    });
-  },
+  // _onLoad(newData) {
+  //   return new Promise((resolve, reject) => {
+  //     Calls.getBoatsByPierId({
+  //       data: newData,
+  //       done: dtoOut =>
+  //         resolve({
+  //           itemList: dtoOut.itemList,
+  //           pageInfo: dtoOut.pageInfo
+  //         }),
+  //       fail: dtoOut => {
+  //         // this._boatDetailForm.getForm().setReady();
+  //         UU5.Environment.getPage()
+  //           .getAlertBus()
+  //           .setAlert({
+  //             content: "Boat list failed!",
+  //             colorSchema: "danger"
+  //           });
+  //         reject(dtoOut);
+  //       }
+  //     });
+  //   });
+  // },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
-    // console.log(this.props, "props in boat");
-    const { code, boatType, src } = this.props;
+    console.log(this.props, "props in boat");
+    let { code, boatType, insurance } = this.props.data;
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-        <UU5.Bricks.Button
-          content={"Move to boat"}
-          onClick={() => {
-            UU5.Environment.setRoute({
-              component: <BoatInfo data={this.props} />,
-              url: { useCase: "boat", parameters: { id: this.props.data.id } }
-            });
-          }}
-          style={{
-            position: "absolute",
-            right: "1%",
-            bottom: "6%"
-          }}
-        />
-        <UU5.Bricks.Card
-          // header={<UU5.Bricks.Text content={code} classname={"uu5-common-singleline-ellipsis"}/>}
-          level={6}
-          bgStyle="outline"
-          className={"uu5-common-padding-s joke"}
-        >
+        <UU5.Bricks.Card>
           {code && <UU5.Bricks.Text content={code} />}
           {boatType && <UU5.Bricks.Text content={boatType} />}
-          <Plus4U5.Bricks.Image
-            style={{ display: "block", margin: "auto", width: "50%", background: "#f5f5f5" }}
-            src={src}
-            alt={"No-img"}
-          />
+          {insurance && <UU5.Bricks.Text content={insurance} />}
           {/*{slots && <UU5.Bricks.Text content={slots} />}*/}
         </UU5.Bricks.Card>
-      </UU5.Bricks.Div>)
+      </UU5.Bricks.Div>
+    );
   }
   //@@viewOff:render
 });

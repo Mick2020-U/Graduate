@@ -44,9 +44,18 @@ let Calls = {
     });
   },
 
-  getBoatsByPierId(dtoIn) {
-    let commandUri = Calls.getCommandUri("pier/boats");
-    return Calls.call("get", commandUri, dtoIn);
+  boatsById(dtoIn) {
+    let commandUri = Calls.getCommandUri("boat/listByPier");
+    return new Promise((resolve, reject) => {
+      Calls.call("get", commandUri, {
+        data: { id: dtoIn },
+        done: dtoOut =>
+          resolve({
+            boats: dtoOut
+          }),
+        fail: response => reject(response)
+      });
+    });
   },
 
   /*

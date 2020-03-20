@@ -3,7 +3,7 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
 import Calls from "../calls";
-import Pier from "../routes/pier";
+import Boat from "./boat";
 //@@viewOff:imports
 
 export const PierInfo = UU5.Common.VisualComponent.create({
@@ -34,10 +34,10 @@ export const PierInfo = UU5.Common.VisualComponent.create({
       currentBoat: {}
     };
   },*/
-  /*  async componentDidMount() {
-    let res = await Calls.pierInfo(this.props.params.id || this.props.data.item.id);
-    console.log(res, "res");
-  },*/
+  async componentDidMount() {
+    let res = await Calls.boatsById("5e73620c5ae50e7a722e0149");
+    // console.log(res, "res");
+  },
   //@@viewOff:reactLifeCycle
 
   //@@viewOn:interface
@@ -47,7 +47,13 @@ export const PierInfo = UU5.Common.VisualComponent.create({
   },
   async loadBoats() {
     let query = this.props.params.id || this.props.data.item.id;
-    return await Calls.getBoatsByPierId(query);
+    return await Calls.boatsById(query);
+  },
+  async test() {
+    let query = "5e73620c5ae50e7a722e0149";
+    let res = await Calls.boatsById(query);
+    console.log(res, "look at response");
+    return res.boats.itemList;
   },
   //@@viewOff:interface
 
@@ -60,20 +66,11 @@ export const PierInfo = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    // console.log(this.props.params.id, "pier-info");
-    // console.log(this.handleLoad(this.props.params.id));
-
-    // const { code, state, slots } = this.props.data;
-    // const loadObject = () => {
-    //   let res =  Calls.pierInfo(this.props.data.item.id);
-    //   return res;
-    // };
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
         <UU5.Common.DataManager onLoad={this.loadPier}>
           {({ viewState, errorState, errorData, data, handleUpdate }) => {
             if (data) {
-              console.log(data, "look at data");
               let { code, state, slots } = data.pier;
               return (
                 <UU5.Bricks.Card>
@@ -87,11 +84,101 @@ export const PierInfo = UU5.Common.VisualComponent.create({
             }
           }}
         </UU5.Common.DataManager>
-        <UU5.Bricks.Row display="flex">
-          {data.map(item => (
-            <Pier item={item} key={item.id}/>
-          ))}
-        </UU5.Bricks.Row>
+
+        <UU5.Common.ListDataManager
+          onLoad={this.test}
+          onReload={this.test}
+          onCreate={Calls.create}
+          onUpdate={Calls.update}
+          onDelete={Calls.delete}
+        >
+          {({
+            viewState,
+            errorState,
+            errorData,
+            data,
+            handleLoad,
+            handleReload,
+            handleCreate,
+            handleUpdate,
+            handleDelete
+          }) => {
+            if (errorState) {
+              // error
+              return "Error";
+            } else if (data) {
+              console.log(data, "look at data");
+              // ready
+              return (
+                <UU5.Bricks.Div>
+                  <UU5.Bricks.Button
+                    disabled={!data}
+                    onClick={() => {
+                      handleLoad().then(
+                        data => console.log("load success", data),
+                        data => console.log("load fail", data)
+                      );
+                    }}
+                  >
+                    Load
+                  </UU5.Bricks.Button>
+                  <UU5.Bricks.Button
+                    disabled={!data}
+                    colorSchema="primary"
+                    onClick={() => {
+                      handleReload().then(
+                        data => console.log("reload success", data),
+                        data => console.log("reload fail", data)
+                      );
+                    }}
+                  >
+                    Reload
+                  </UU5.Bricks.Button>
+                  <UU5.Bricks.Button
+                    colorSchema="success"
+                    disabled={errorState || !data}
+                    onClick={() => {
+                      handleCreate({
+                        id: UU5.Common.Tools.generateUUID(),
+                        name: "Joke " + new Date().toLocaleString(),
+                        text: "Lorem ipsum..."
+                      }).then(data => console.log("create success", data), data => console.log("create fail", data));
+                    }}
+                  >
+                    Create
+                  </UU5.Bricks.Button>
+                  <UU5.Bricks.Row display="flex">
+                    {data.map(item => (
+                      <UU5.Bricks.Column colWidth="m-6 l-4 xl-3" key={item.id}>
+                        <Boat
+                          data={item}
+                          onUpdate={itemData => {
+                            handleUpdate(itemData.id, {
+                              ...itemData,
+                              name: "Boat " + new Date().toLocaleString()
+                            }).then(
+                              data => console.log("update success", data),
+                              data => console.log("update fail", data)
+                            );
+                          }}
+                          onDelete={itemData => {
+                            handleDelete(itemData.id).then(
+                              data => console.log("delete success", data),
+                              data => console.log("delete fail", data)
+                            );
+                          }}
+                        />
+                      </UU5.Bricks.Column>
+                    ))}
+                  </UU5.Bricks.Row>
+                </UU5.Bricks.Div>
+              );
+            } else {
+              // loading
+              return <UU5.Bricks.Loading />;
+            }
+          }}
+        </UU5.Common.ListDataManager>
       </UU5.Bricks.Div>
     );
   }
