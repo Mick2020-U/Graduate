@@ -30,6 +30,14 @@ class PierAbl {
     this.dao = DaoFactory.getDao("pier");
   }
 
+  async boats(awid, dtoIn) {
+    return await this.dao.getBoats(awid, dtoIn.id);
+  }
+
+  async info(awid, dtoIn) {
+    return await this.dao.get(awid, dtoIn.id);
+  }
+
   async delete(awid, dtoIn) {
     let validationResult = this.validator.validate("pierDeleteDtoInType", dtoIn);
 

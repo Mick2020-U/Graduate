@@ -40,6 +40,16 @@
         "realization": "api/controllers/PierController.delete",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "pier/info": {
+        "realization": "api/controllers/PierController.info",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "pier/boats": {
+        "realization": "api/controllers/PierController.boats",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

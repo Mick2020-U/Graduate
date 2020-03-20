@@ -59,7 +59,19 @@ const DeletePier = {
   }
 };
 
+const Info = {
+  UC_CODE: `${PIER_ERROR_PREFIX}info/`,
+  
+};
+
+const Boats = {
+  UC_CODE: `${PIER_ERROR_PREFIX}boats/`,
+  
+};
+
 module.exports = {
+  Boats,
+  Info,
   DeletePier,
   PierList,
   CreatePier

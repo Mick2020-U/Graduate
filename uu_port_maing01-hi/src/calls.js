@@ -30,6 +30,19 @@ let Calls = {
       });
     });
   },
+  pierInfo(dtoIn) {
+    let commandUri = Calls.getCommandUri("pier/info");
+    return new Promise((resolve, reject) => {
+      Calls.call("get", commandUri, {
+        data: { id: dtoIn },
+        done: dtoOut =>
+          resolve({
+            pier: dtoOut
+          }),
+        fail: response => reject(response)
+      });
+    });
+  },
 
   getBoatsByPierId(dtoIn) {
     let commandUri = Calls.getCommandUri("boat/list");

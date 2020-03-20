@@ -54,7 +54,7 @@ export const Port = UU5.Common.VisualComponent.create({
               // error
               return <UU5.Bricks.Error errorData={errorData} />;
             } else if (data) {
-              console.log(data);
+              // console.log(data);
               // ready
               return (
                 <UU5.Bricks.Resize>

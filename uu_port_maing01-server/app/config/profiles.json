@@ -16,7 +16,9 @@
       "boat/update": ["Public"],
       "pier/create": ["Public"],
       "pier/list": ["Public"],
-      "pier/delete": ["Public"]
+      "pier/delete": ["Public"],
+      "pier/info": ["Public"],
+      "pier/boats": ["Public"]
     }
   }
 }

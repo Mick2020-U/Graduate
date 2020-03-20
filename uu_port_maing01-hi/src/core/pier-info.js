@@ -2,7 +2,6 @@
 import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
-import Boat from "./boat";
 import Calls from "../calls";
 //@@viewOff:imports
 
@@ -27,45 +26,62 @@ export const PierInfo = UU5.Common.VisualComponent.create({
   //@@viewOff:getDefaultProps
 
   //@@viewOn:reactLifeCycle
+  /*  getInitialState() {
+    return {
+      pierInfo: {},
+      boats: [],
+      currentBoat: {}
+    };
+  },*/
+  /*  async componentDidMount() {
+    let res = await Calls.pierInfo(this.props.params.id || this.props.data.item.id);
+    console.log(res, "res");
+  },*/
   //@@viewOff:reactLifeCycle
 
   //@@viewOn:interface
+  async loadPier() {
+    let query = this.props.params.id || this.props.data.item.id;
+    return await Calls.pierInfo(query);
+  },
   //@@viewOff:interface
 
   //@@viewOn:overriding
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _onLoad(newData) {
-    return new Promise((resolve, reject) => {
-      Calls.getBoatsByPierId({
-        data: newData,
-        done: dtoOut =>
-          resolve({
-            itemList: dtoOut.itemList,
-            pageInfo: dtoOut.pageInfo
-          }),
-        fail: dtoOut => {
-          // this._boatDetailForm.getForm().setReady();
-          UU5.Environment.getPage()
-            .getAlertBus()
-            .setAlert({
-              content: "Boat list failed!",
-              colorSchema: "danger"
-            });
-          reject(dtoOut);
-        }
-      });
-    });
-  },
+
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
-    const { code, state, slots } = this.props.data;
+    // console.log(this.props.params.id, "pier-info");
+    // console.log(this.handleLoad(this.props.params.id));
+
+    // const { code, state, slots } = this.props.data;
+    // const loadObject = () => {
+    //   let res =  Calls.pierInfo(this.props.data.item.id);
+    //   return res;
+    // };
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-
+        <UU5.Common.DataManager onLoad={this.loadPier}>
+          {({ viewState, errorState, errorData, data, handleUpdate }) => {
+            if (data) {
+              console.log(data, "look at data");
+              let { code, state, slots } = data.pier;
+              return (
+                <UU5.Bricks.Card>
+                  {code && <UU5.Bricks.Text content={code} />}
+                  {state && <UU5.Bricks.Text content={state} />}
+                  {/*{slots && <UU5.Bricks.Text content={slots} />}*/}
+                </UU5.Bricks.Card>
+              );
+            } else {
+              return <UU5.Bricks.Loading />;
+            }
+          }}
+        </UU5.Common.DataManager>
       </UU5.Bricks.Div>
     );
   }
