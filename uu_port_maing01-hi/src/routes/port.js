@@ -16,7 +16,7 @@ export const Port = UU5.Common.VisualComponent.create({
   statics: {
     tagName: Config.TAG + "Port",
     classNames: {
-      main: (props, state) => Config.Css.css`width: 100%, background: rgba(0, 0, 0, 0.15); padding: 8px; margin: 8px 0;`
+      main: (props, state) => Config.Css.css``
     }
   },
   //@@viewOff:statics
@@ -42,78 +42,30 @@ export const Port = UU5.Common.VisualComponent.create({
       return <Pier pier={pier} key={pier.id} />;
     });
   },*/
-  _onLoad(newData) {
-    return new Promise((resolve, reject) => {
-      Calls.pierList({
-        data: newData,
-        done: dtoOut =>
-          resolve({
-            itemList: dtoOut.itemList,
-            pageInfo: dtoOut.pageInfo
-          }),
-        fail: dtoOut => {
-          // this._boatDetailForm.getForm().setReady();
-          UU5.Environment.getPage()
-            .getAlertBus()
-            .setAlert({
-              content: "Pier list failed!",
-              colorSchema: "danger"
-            });
-          reject(dtoOut);
-        }
-      });
-    });
-  },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-        <UU5.Common.ListDataManager onLoad={this._onLoad}>
+        <UU5.Common.ListDataManager onLoad={Calls.pierList}>
           {({ viewState, errorState, errorData, data, handleCreate, handleLoad }) => {
             if (errorState) {
               // error
               return <UU5.Bricks.Error errorData={errorData} />;
             } else if (data) {
+              console.log(data);
               // ready
               return (
                 <UU5.Bricks.Resize>
-                  <UU5.Common.Fragment>
-                    <UU5.Bricks.LanguageSelector displayedLanguages={["en", "cz"]} />
-                    {/*<UU5.Bricks.Button colorSchema="green" onClick={this._openCreateBoatRoute}>
-                    <UU5.Bricks.Icon icon="mdi-plus" />
-                    Create
-                  </UU5.Bricks.Button>*/}
-                    {/*<UU5.Bricks.Header*/}
-                    {/*  tooltip={this.getLsiValue("jokesListHeader")}*/}
-                    {/*  content={this.getLsiComponent("jokesListHeader")}*/}
-                    {/*  level={3}*/}
-                    {/*  colorSchema="pink"*/}
-                    {/*/>*/}
-                    <UU5.Bricks.Div>
-                      <UU5.Bricks.Row>
-                        <UU5.Tiles.List
-                          tile={<Pier />}
-                          // tile={<Joke joke={{ ...data.item }} key={data.item.id}/>}
-                          handleLoad={handleLoad}
-                          data={data}
-                          tileHeight={400}
-                          tileMinWidth={1000}
-                          tileMaxWidth={2400}
-                          tileSpacing={8}
-                          tileElevationHover={1}
-                          tileBorder
-                          tileStyle={{ borderRadius: 4 }}
-                          rowSpacing={1}
-                          tileJustify="space-around"
-                          scrollElement={window}
-                          key={UU5.Common.Tools.generateUUID(8)}
-                        />
-                      </UU5.Bricks.Row>
-                    </UU5.Bricks.Div>
-                  </UU5.Common.Fragment>
-                </UU5.Bricks.Resize>)
+                  <UU5.Bricks.LanguageSelector displayedLanguages={["en", "cz"]} />
+                  <UU5.Bricks.Row display="flex">
+                    {data.map(item => (
+                   <Pier item={item} key={item.id}/>
+                    ))}
+                  </UU5.Bricks.Row>
+                </UU5.Bricks.Resize>
+              );
             } else {
               // loading
               return <UU5.Bricks.Loading />;

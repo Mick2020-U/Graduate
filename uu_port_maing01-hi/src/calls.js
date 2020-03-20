@@ -18,7 +18,17 @@ let Calls = {
   },
   pierList(dtoIn) {
     let commandUri = Calls.getCommandUri("pier/list");
-    return Calls.call("get", commandUri, dtoIn);
+    return new Promise((resolve, reject) => {
+      Calls.call("get", commandUri, {
+        data: dtoIn,
+        done: dtoOut =>
+          resolve({
+            itemList: dtoOut.itemList,
+            pageInfo: dtoOut.pageInfo
+          }),
+        fail: response => reject(response)
+      });
+    });
   },
 
   getBoatsByPierId(dtoIn) {

@@ -65,53 +65,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
     const { code, state, slots } = this.props.data;
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-        <UU5.Common.ListDataManager onLoad={this._onLoad}>
-          {({ viewState, errorState, errorData, data, handleCreate, handleLoad }) => {
-            if (errorState) {
-              // error
-              return <UU5.Bricks.Error errorData={errorData} />;
-            } else if (data) {
-              // ready
-              return (
-                <UU5.Common.Fragment>
 
-                  <UU5.Bricks.Card
-                    header={<UU5.Bricks.Text content={code} classname={"uu5-common-singleline-ellipsis"} />}
-                    level={6}
-                    bgStyle="outline"
-                    className={"uu5-common-padding-s joke"}
-                  >
-                    {state && <UU5.Bricks.Text content={state} />}
-                    {slots && <UU5.Bricks.Text content={slots} />}
-                  </UU5.Bricks.Card>
-                  <UU5.Bricks.Div>
-                    <UU5.Bricks.Row display="flex">
-                      <UU5.Tiles.List
-                        tile={<Boat />}
-                        // tile={<Joke joke={{ ...data.item }} key={data.item.id}/>}
-                        handleLoad={handleLoad}
-                        data={data}
-                        tileHeight={300}
-                        tileMinWidth={220}
-                        tileMaxWidth={400}
-                        tileSpacing={8}
-                        tileElevationHover={1}
-                        tileBorder
-                        tileStyle={{ borderRadius: 4 }}
-                        rowSpacing={8}
-                        tileJustify="space-between"
-                        scrollElement={window}
-                      />
-                    </UU5.Bricks.Row>
-                  </UU5.Bricks.Div>
-                </UU5.Common.Fragment>
-              );
-            } else {
-              // loading
-              return <UU5.Bricks.Loading />;
-            }
-          }}
-        </UU5.Common.ListDataManager>
       </UU5.Bricks.Div>
     );
   }
