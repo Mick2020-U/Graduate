@@ -76,7 +76,13 @@ const ListByPier = {
   
 };
 
+const Get = {
+  UC_CODE: `${BOAT_ERROR_PREFIX}get/`,
+  
+};
+
 module.exports = {
+  Get,
   ListByPier,
   ListById,
   UpdateBoat,

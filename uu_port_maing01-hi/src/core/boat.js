@@ -69,7 +69,7 @@ export const Boat = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    console.log(this.props, "props in boat");
+    // console.log(this.props, "props in boat");
     let { code, boatType, insurance, id } = this.props.data;
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
@@ -86,6 +86,11 @@ export const Boat = UU5.Common.VisualComponent.create({
           {code && <UU5.Bricks.Text content={code} />}
           {boatType && <UU5.Bricks.Text content={boatType} />}
           {insurance && <UU5.Bricks.Text content={insurance} />}
+          <Plus4U5.Bricks.Image
+            style={{ display: "block", margin: "auto", width: "80%", background: "#0000" }}
+            src={"https://static01.nyt.com/images/2020/03/07/business/07wealth-01/06wealth-01-mediumSquareAt3X.jpg"}
+            alt={"No-img"}
+          />
         </UU5.Bricks.Card>
       </UU5.Bricks.Div>
     );

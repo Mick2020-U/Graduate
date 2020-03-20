@@ -58,6 +58,19 @@ let Calls = {
     });
   },
 
+  boatInfo(dtoIn) {
+    let commandUri = Calls.getCommandUri("boat/get");
+    return new Promise((resolve, reject) => {
+      Calls.call("get", commandUri, {
+        data: { id: dtoIn },
+        done: boat =>
+          resolve({
+            boat
+          }),
+        fail: response => reject(response)
+      });
+    });
+  },
   /*
   For calling command on specific server, in case of developing client site with already deployed
   server in uuCloud etc. You can specify url of this application (or part of url) in development

@@ -3,6 +3,10 @@ const BoatAbl = require("../../abl/boat-abl.js");
 
 class BoatController {
 
+  get(ucEnv) {
+    return BoatAbl.get(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
   listByPier(ucEnv) {
     return BoatAbl.listByPier(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

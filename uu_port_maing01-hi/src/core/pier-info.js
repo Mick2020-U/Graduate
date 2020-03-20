@@ -102,7 +102,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
               // error
               return "Error";
             } else if (data) {
-              console.log(data, "look at data");
+              // console.log(data, "look at data");
               // ready
               return (
                 <UU5.Bricks.Div>

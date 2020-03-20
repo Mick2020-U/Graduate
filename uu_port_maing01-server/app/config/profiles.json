@@ -20,7 +20,8 @@
       "pier/info": ["Public"],
       "pier/boats": ["Public"],
       "boat/listById": ["Public"],
-      "boat/listByPier": ["Public"]
+      "boat/listByPier": ["Public"],
+      "boat/get": ["Public"]
     }
   }
 }

@@ -26,6 +26,11 @@
         "httpMethod": "POST",
         "type": "CMD"
       },
+      "boat/get": {
+        "realization": "api/controllers/BoatController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
       "boat/listByPier": {
         "realization": "api/controllers/BoatController.listByPier",
         "httpMethod": "GET",
