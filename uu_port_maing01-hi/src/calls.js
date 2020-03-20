@@ -45,7 +45,7 @@ let Calls = {
   },
 
   getBoatsByPierId(dtoIn) {
-    let commandUri = Calls.getCommandUri("boat/list");
+    let commandUri = Calls.getCommandUri("pier/boats");
     return Calls.call("get", commandUri, dtoIn);
   },
 

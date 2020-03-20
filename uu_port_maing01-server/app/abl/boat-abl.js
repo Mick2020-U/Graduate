@@ -36,6 +36,9 @@ class BoatAbl {
     this.dao = DaoFactory.getDao("boat");
   }
 
+  async listByPier(awid, dtoIn) {
+    return await this.dao.listByPier(awid, dtoIn.id);
+  }
   async list(awid, dtoIn) {
     let validationResult = this.validator.validate("boatListDtoInType", dtoIn);
     let sort = dtoIn.hasOwnProperty("sortBy") ? (dtoIn.sortBy === "code" ? "code" : "time") : "code";

@@ -66,7 +66,19 @@ const UpdateBoat = {
 
 };
 
+const ListById = {
+  UC_CODE: `${BOAT_ERROR_PREFIX}listById/`,
+  
+};
+
+const ListByPier = {
+  UC_CODE: `${BOAT_ERROR_PREFIX}listByPier/`,
+  
+};
+
 module.exports = {
+  ListByPier,
+  ListById,
   UpdateBoat,
   BoatList,
   CreateBoat

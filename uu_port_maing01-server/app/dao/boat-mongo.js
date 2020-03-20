@@ -34,6 +34,9 @@ class BoatMongo extends UuObjectDao {
 
     return await super.findOneAndUpdate(filter, uuObject, "NONE");
   }
+  async listByPier(awid, id) {
+    return await super.find({ pierId: id });
+  }
 }
 
 module.exports = BoatMongo;

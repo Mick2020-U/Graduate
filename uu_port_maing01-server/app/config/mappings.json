@@ -50,6 +50,11 @@
         "realization": "api/controllers/PierController.boats",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "boat/listByPier": {
+        "realization": "api/controllers/BoatController.listByPier",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

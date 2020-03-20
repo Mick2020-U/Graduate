@@ -3,6 +3,14 @@ const BoatAbl = require("../../abl/boat-abl.js");
 
 class BoatController {
 
+  listByPier(ucEnv) {
+    return BoatAbl.listByPier(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
+  // listById(ucEnv) {
+  //   return BoatAbl.listById(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  // }
+
   update(ucEnv) {
     return BoatAbl.update(ucEnv.getUri().getAwid(), ucEnv.getDtoIn(), ucEnv.getAuthorizationResult());
   }
