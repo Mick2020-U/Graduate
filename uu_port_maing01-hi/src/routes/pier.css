@@ -1,14 +1,14 @@
 .wrapper {
   background-color: whitesmoke;
-  border: 1px solid gray;
-  min-width: 320px;
-  min-height: 320px;
+  border: 2px solid deepskyblue;
+  min-width: 300px;
+  min-height: 300px;
 }
 
 
 @media screen and (min-width: 760px) {
   .uu5-bricks-row.uu5-bricks-row-flex {
-    flex-wrap: nowrap;
+    /*flex-wrap: nowrap;*/
   }
 }
 

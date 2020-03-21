@@ -12,13 +12,8 @@ const pierListDtoInType = shape({
 const pierCreateDtoInType = shape({
   code: uu5String(255).isRequired(),
   state: oneOf(["active", "passive", "problem"]),
-  boatCodes: array(shape({
-    boatId: id().isRequired(),
-  })).isRequired(),
-  typeOfBoats:oneOf(["yacht", "barga", "tanker", "containership"]),
-  slots: oneOf([1, 2]),
-  busy: integer(),
-  empty: integer()
+  slots: oneOf([1, 2]).isRequired(),
+  availableSlots:integer()
 });
 
 

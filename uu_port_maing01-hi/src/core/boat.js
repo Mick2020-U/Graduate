@@ -4,6 +4,7 @@ import "uu5g04-bricks";
 import Config from "./config/config.js";
 import Calls from "../calls";
 import BoatInfo from "./boat-info";
+import BoatEdit from "./boat-edit";
 //@@viewOff:imports
 
 export const Boat = UU5.Common.VisualComponent.create({
@@ -106,6 +107,15 @@ export const Boat = UU5.Common.VisualComponent.create({
             style={{ display: "block", margin: "auto", width: "80%", background: "#0000" }}
             src={"https://static01.nyt.com/images/2020/03/07/business/07wealth-01/06wealth-01-mediumSquareAt3X.jpg"}
             alt={"No-img"}
+          />
+          <UU5.Bricks.Button
+            content={"Edit Boat"}
+            onClick={() => {
+              UU5.Environment.setRoute({
+                component: <BoatEdit data={this.props} />,
+                url: { useCase: "boatEdit", parameters: { id } }
+              });
+            }}
           />
         </UU5.Bricks.Card>
       </UU5.Bricks.Div>

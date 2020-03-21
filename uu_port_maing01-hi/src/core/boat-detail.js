@@ -76,9 +76,6 @@ export const BoatDetail = UU5.Common.VisualComponent.create({
             let piers = data[0].value.data.itemList;
             let captains = data[1].value.data.itemList;
             let boats = data[2].value.data.itemList;
-            // console.log(data, "look at data");
-            console.log(piers, "look at data");
-            console.log(captains, "look at data");
             return (
               <UU5.Bricks.Section {...this.getMainPropsToPass()}>
                 <UU5.Forms.ContextModal ref_={modal => (this._modal = modal)} />

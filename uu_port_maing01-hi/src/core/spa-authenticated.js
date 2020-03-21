@@ -16,6 +16,7 @@ import Boat from "./boat";
 import PierInfo from "./pier-info";
 import BoatInfo from "./boat-info";
 import BoatDetail from "./boat-detail";
+import BoatEdit from "./boat-edit";
 //@@viewOff:imports
 
 const SpaAuthenticated = UU5.Common.VisualComponent.create({
@@ -82,7 +83,8 @@ const SpaAuthenticated = UU5.Common.VisualComponent.create({
             pier: { component: <Pier identity={this.props.identity} /> },
             pierInfo: { component: <PierInfo identity={this.props.identity} /> },
             boatInfo: { component: <BoatInfo identity={this.props.identity} /> },
-            boatDetail: { component: <BoatDetail identity={this.props.identity} /> }
+            boatDetail: { component: <BoatDetail identity={this.props.identity} /> },
+            boatEdit: { component: <BoatEdit identity={this.props.identity} /> }
           }}
           controlled={false}
         />

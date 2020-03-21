@@ -57,7 +57,7 @@ let Calls = {
     let commandUri = Calls.getCommandUri("pier/update");
     return new Promise((resolve, reject) => {
       Calls.call("post", commandUri, {
-        data: { id: dtoIn },
+        data:  {id: dtoIn} ,
         done: dtoOut =>
           resolve({
             pier: dtoOut

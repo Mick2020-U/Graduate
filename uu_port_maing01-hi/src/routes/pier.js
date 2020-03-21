@@ -44,7 +44,8 @@ export const Pier = UU5.Common.VisualComponent.create({
   //@@viewOff:private
   //@@viewOn:render
   render() {
-    const { code, state, slots, typeOfBoats, id, empty } = this.props.item;
+    const { code, state, typeOfBoats, id, slots, availableSlots } = this.props.item;
+    const busy = slots - availableSlots;
     return (
       <UU5.Bricks.Column className="wrapper" colWidth="m-6 l-4 xl-3">
         <UU5.Bricks.Section
@@ -81,7 +82,8 @@ export const Pier = UU5.Common.VisualComponent.create({
           {code && <UU5.Bricks.Text content={code} />}
           {slots && <UU5.Bricks.Text content={slots} />}
           {typeOfBoats && <UU5.Bricks.Text content={typeOfBoats} />}
-          <UU5.Bricks.Text>available {empty && <UU5.Bricks.Text content={empty} />} </UU5.Bricks.Text>
+          <UU5.Bricks.Text>available {availableSlots && <UU5.Bricks.Text content={availableSlots} />} </UU5.Bricks.Text>
+          <UU5.Bricks.Text>busy {busy && <UU5.Bricks.Text content={busy} />} </UU5.Bricks.Text>
         </UU5.Bricks.Section>
       </UU5.Bricks.Column>
     );

@@ -34,7 +34,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
       currentBoat: {}
     };
   },*/
-/*  async componentDidMount() {
+  /*  async componentDidMount() {
     let res = await Calls.boatsById("5e73620c5ae50e7a722e0149");
     // console.log(res, "res");
   },*/
@@ -66,16 +66,21 @@ export const PierInfo = UU5.Common.VisualComponent.create({
         <UU5.Common.DataManager onLoad={this.loadPier}>
           {({ viewState, errorState, errorData, data, handleUpdate }) => {
             if (data) {
-              let { code, state, empty } = data.pier;
+              let { code, state, slots, availableSlots } = data.pier;
+              const busy = slots - availableSlots;
+              // console.log(slots, "slots");
               return (
                 <UU5.Bricks.Card>
-                  {code && <UU5.Bricks.Text content={code}/>}
-                  {state && <UU5.Bricks.Text content={state}/>}
-                  <UU5.Bricks.Text>available {empty && <UU5.Bricks.Text content={empty} />} </UU5.Bricks.Text>
+                  {code && <UU5.Bricks.Text content={code} />}
+                  {state && <UU5.Bricks.Text content={state} />}
+                  <UU5.Bricks.Text>
+                    available {availableSlots && <UU5.Bricks.Text content={availableSlots} />}{" "}
+                  </UU5.Bricks.Text>
+                  <UU5.Bricks.Text>busy {<UU5.Bricks.Text content={busy} />} </UU5.Bricks.Text>
                 </UU5.Bricks.Card>
               );
             } else {
-              return <UU5.Bricks.Loading/>;
+              return <UU5.Bricks.Loading />;
             }
           }}
         </UU5.Common.DataManager>
@@ -145,11 +150,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
                   <UU5.Bricks.Row display="flex">
                     {data.map(item => (
                       <UU5.Bricks.Column colWidth="m-6 l-4 xl-3" key={item.id}>
-                        <Boat
-                          data={item}
-                          handleDelete={handleDelete}
-                          handleReload={handleReload}
-                        />
+                        <Boat data={item} handleDelete={handleDelete} handleReload={handleReload} />
                       </UU5.Bricks.Column>
                     ))}
                   </UU5.Bricks.Row>
@@ -157,7 +158,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
               );
             } else {
               // loading
-              return <UU5.Bricks.Loading/>;
+              return <UU5.Bricks.Loading />;
             }
           }}
         </UU5.Common.ListDataManager>
