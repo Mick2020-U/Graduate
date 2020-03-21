@@ -85,7 +85,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
           onReload={this.loadBoats}
           onCreate={Calls.create}
           onUpdate={Calls.update}
-          onDelete={Calls.boatDelete}
+          onDelete={Calls.deleteBoatFromPier}
         >
           {({
             viewState,
@@ -148,6 +148,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
                         <Boat
                           data={item}
                           handleDelete={handleDelete}
+                          handleReload={handleReload}
                         />
                       </UU5.Bricks.Column>
                     ))}

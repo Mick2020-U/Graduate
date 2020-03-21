@@ -92,8 +92,8 @@ export const Boat = UU5.Common.VisualComponent.create({
             }}
             content="&times;"
             onClick={() => {
-              this.props.handleDelete(id).then(res => {
-                console.log(res, "delete");
+              this.props.handleDelete({ ...this.props }).then(res => {
+               this.props.handleReload()
               });
             }}
           >

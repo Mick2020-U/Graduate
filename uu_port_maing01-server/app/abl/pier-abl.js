@@ -31,6 +31,7 @@ class PierAbl {
   }
 
   async update(awid, dtoIn) {
+    console.log(dtoIn, "========================dtoin");
     try {
       let findPier = await this.dao.get(awid, dtoIn.id);
       if (!findPier) {
@@ -39,16 +40,26 @@ class PierAbl {
         };
       }
       let { slots, busy } = findPier;
-      console.log(busy, "look at busy");
-
-      if (busy === slots) {
+      if (dtoIn.deleteBoat) {
+        dtoIn.busy = findPier.busy === 0 ? 0 : findPier.busy - 1;
+        dtoIn.empty = findPier.empty + 1;
+        let dtoOut = {};
+        try {
+          dtoOut = await this.dao.update({ ...dtoIn, awid });
+        } catch (e) {
+          if (e instanceof ObjectStoreError) {
+            console.log(e, "err");
+          }
+          throw e;
+        }
+        return { ...dtoOut };
+      } else if (busy === slots) {
         return {
           message: "no free space"
         };
       }
       dtoIn.busy = findPier.busy + 1;
       dtoIn.empty = findPier.empty - 1;
-      console.log(dtoIn, "look at dtoIn before Update");
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         console.log(e, "err");

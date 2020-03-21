@@ -102,11 +102,30 @@ let Calls = {
     });
   },
 
-  addBoatToPier(dtoIn) {
-    return Promise.allSettled([
-      Calls.call("get", Calls.getCommandUri("boat/create"), dtoIn),
-      Calls.call("get", Calls.getCommandUri("pier/Update"), dtoIn)
-    ]);
+  deleteBoatFromPier(dtoIn) {
+    let deleteBoat = true;
+    let req = {
+      ...dtoIn,
+      deleteBoat
+    };
+    return new Promise((resolve, reject) => {
+      Calls.call("post", Calls.getCommandUri("pier/update"), {
+        data: { id: dtoIn.data.pierId, boatId: dtoIn.data.id, deleteBoat },
+        done: boat =>
+          resolve({
+            boat
+          }),
+        fail: response => reject(response)
+      });
+      Calls.call("get", Calls.getCommandUri("boat/delete"), {
+        data: { id: dtoIn.data.id },
+        done: boat =>
+          resolve({
+            boat
+          }),
+        fail: response => reject(response)
+      });
+    });
   },
   boatInfo(dtoIn) {
     let commandUri = Calls.getCommandUri("boat/get");
