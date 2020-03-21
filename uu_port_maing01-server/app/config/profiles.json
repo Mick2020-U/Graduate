@@ -22,7 +22,9 @@
       "boat/listById": ["Public"],
       "boat/listByPier": ["Public"],
       "boat/get": ["Public"],
-      "boat/detail": ["Public"]
+      "boat/detail": ["Public"],
+      "captain/create": ["Public"],
+      "captain/list": ["Public"]
     }
   }
 }

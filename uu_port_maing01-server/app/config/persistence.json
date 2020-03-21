@@ -12,6 +12,9 @@
         },
         "pier": {
           "realization": "dao/PierMongo"
+        },
+        "captain": {
+          "realization": "dao/CaptainMongo"
         }
       }
     }

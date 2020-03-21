@@ -66,12 +66,12 @@ export const PierInfo = UU5.Common.VisualComponent.create({
         <UU5.Common.DataManager onLoad={this.loadPier}>
           {({ viewState, errorState, errorData, data, handleUpdate }) => {
             if (data) {
-              let { code, state, slots } = data.pier;
+              let { code, state, empty } = data.pier;
               return (
                 <UU5.Bricks.Card>
                   {code && <UU5.Bricks.Text content={code}/>}
                   {state && <UU5.Bricks.Text content={state}/>}
-                  {/*{slots && <UU5.Bricks.Text content={slots} />}*/}
+                  <UU5.Bricks.Text>available {empty && <UU5.Bricks.Text content={empty} />} </UU5.Bricks.Text>
                 </UU5.Bricks.Card>
               );
             } else {

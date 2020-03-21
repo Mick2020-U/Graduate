@@ -65,6 +65,16 @@
         "realization": "api/controllers/BoatController.detail",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "captain/create": {
+        "realization": "api/controllers/CaptainController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "captain/list": {
+        "realization": "api/controllers/CaptainController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }
