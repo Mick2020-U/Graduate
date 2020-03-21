@@ -3,6 +3,7 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
 import Calls from "../calls";
+// import Port from "../routes/port";
 //@@viewOff:imports
 
 export const BoatEdit = UU5.Common.VisualComponent.create({
@@ -56,15 +57,21 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
   async _onSave(opt) {
     console.log(opt);
     if (this.state.boat.pierId !== opt.values.pierId) {
-      console.log(this.state.boat.pierId, "old");
-      console.log(opt.values.pierId, "new");
+      let pierAvailable = await Calls.pierUpdate(this.state.boat);
+      if (!pierAvailable.pier.message) {
+        await Calls.deleteBoatFromPier(this.state.boat.pierId);
+        await Calls.boatUpdate(opt.values);
+        // updatedBoat &&
+        //   UU5.Environment.setRoute({
+        //     component: <Port />,
+        //     url: { useCase: "port", parameters: {} }
+        //   });
+      } else {
+        alert("No free Space");
+      }
     }
-    // let boat = await Calls.boatUpdate(opt.values);
-    // boat &&
-    //   UU5.Environment.setRoute({
-    //     component: <Port />,
-    //     url: { useCase: "port", parameters: {} }
-    //   });
+
+    // let pierAvailable = await Calls.pierUpdate(opt.values);
   },
   //@@viewOff:private
 
@@ -83,9 +90,9 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
           {({ viewState, errorState, errorData, data, handleUpdate }) => {
             if (data) {
               // let boat = ;
+              // cons [[]]
               let piers = data[0].value.data.itemList;
               let captains = data[1].value.data.itemList;
-
               return (
                 <UU5.Bricks.Section {...this.getMainPropsToPass()}>
                   <UU5.Forms.ContextModal ref_={modal => (this._modal = modal)} />
@@ -123,15 +130,6 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
                           <UU5.Forms.Select.Option content="yacht" value="1" />
                           <UU5.Forms.Select.Option content="barga" value="2" />
                         </UU5.Forms.Select>
-                        {/*<UU5.Bricks.Button*/}
-                        {/*  disabled={!data}*/}
-                        {/*  colorSchema="primary"*/}
-                        {/*  onClick={() => {*/}
-                        {/*    this._onSave(this._form);*/}
-                        {/*  }}*/}
-                        {/*>*/}
-                        {/*  Reload*/}
-                        {/*</UU5.Bricks.Button>*/}
                         <UU5.Forms.Controls />
                       </UU5.Forms.Form>
                     </UU5.Common.Fragment>

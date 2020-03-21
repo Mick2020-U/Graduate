@@ -57,7 +57,7 @@ let Calls = {
     let commandUri = Calls.getCommandUri("pier/update");
     return new Promise((resolve, reject) => {
       Calls.call("post", commandUri, {
-        data:  {id: dtoIn} ,
+        data: { id: dtoIn },
         done: dtoOut =>
           resolve({
             pier: dtoOut
@@ -116,15 +116,11 @@ let Calls = {
     });
   },
 
-  deleteBoatFromPier(dtoIn) {
-    let deleteBoat = true;
-    let req = {
-      ...dtoIn,
-      deleteBoat
-    };
+  deleteBoatFromPier(dtoIn, deleteBoat = true) {
+    console.log(dtoIn);
     return new Promise((resolve, reject) => {
       Calls.call("post", Calls.getCommandUri("pier/update"), {
-        data: { id: dtoIn.data.pierId, boatId: dtoIn.data.id, deleteBoat },
+        data: { id: dtoIn.pierId, deleteBoat },
         done: boat =>
           resolve({
             boat
@@ -132,7 +128,7 @@ let Calls = {
         fail: response => reject(response)
       });
       Calls.call("get", Calls.getCommandUri("boat/delete"), {
-        data: { id: dtoIn.data.id },
+        data: { id: dtoIn.id },
         done: boat =>
           resolve({
             boat

@@ -41,6 +41,10 @@ export const Port = UU5.Common.VisualComponent.create({
     // console.log(UU5.Environment, "look at environment");
     UU5.Environment.setRoute("boatDetail");
   },
+  _openCreatePierDetail() {
+    // console.log(UU5.Environment, "look at environment");
+    UU5.Environment.setRoute("pierCreate");
+  },
   //@@viewOff:private
 
   //@@viewOn:render
@@ -61,6 +65,10 @@ export const Port = UU5.Common.VisualComponent.create({
                   <UU5.Bricks.Button colorSchema="green" onClick={this._openCreateBoatDetail}>
                     <UU5.Bricks.Icon icon="mdi-plus"/>
                     Create Boat
+                  </UU5.Bricks.Button>
+                  <UU5.Bricks.Button colorSchema="green" onClick={this._openCreatePierDetail}>
+                    <UU5.Bricks.Icon icon="mdi-plus"/>
+                    Create Pier
                   </UU5.Bricks.Button>
                   <UU5.Bricks.Row display="flex">
                     {data.map(item => (

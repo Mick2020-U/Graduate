@@ -56,7 +56,9 @@ export const PierInfo = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-
+  async _handleDelete(opt) {
+    await Calls.deleteBoatFromPier(opt.data);
+  },
   //@@viewOff:private
 
   //@@viewOn:render
@@ -90,7 +92,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
           onReload={this.loadBoats}
           onCreate={Calls.create}
           onUpdate={Calls.update}
-          onDelete={Calls.deleteBoatFromPier}
+          onDelete={this._handleDelete}
         >
           {({
             viewState,
@@ -113,17 +115,6 @@ export const PierInfo = UU5.Common.VisualComponent.create({
                 <UU5.Bricks.Div>
                   <UU5.Bricks.Button
                     disabled={!data}
-                    onClick={() => {
-                      handleLoad().then(
-                        data => console.log("load success", data),
-                        data => console.log("load fail", data)
-                      );
-                    }}
-                  >
-                    Load
-                  </UU5.Bricks.Button>
-                  <UU5.Bricks.Button
-                    disabled={!data}
                     colorSchema="primary"
                     onClick={() => {
                       handleReload().then(
@@ -132,20 +123,19 @@ export const PierInfo = UU5.Common.VisualComponent.create({
                       );
                     }}
                   >
-                    Reload
+                    Switch sort by asc desc
                   </UU5.Bricks.Button>
                   <UU5.Bricks.Button
-                    colorSchema="success"
-                    disabled={errorState || !data}
+                    disabled={!data}
+                    colorSchema="danger"
                     onClick={() => {
-                      handleCreate({
-                        id: UU5.Common.Tools.generateUUID(),
-                        name: "Joke " + new Date().toLocaleString(),
-                        text: "Lorem ipsum..."
-                      }).then(data => console.log("create success", data), data => console.log("create fail", data));
+                      handleReload().then(
+                        data => console.log("reload success", data),
+                        data => console.log("reload fail", data)
+                      );
                     }}
                   >
-                    Create
+                    Sort by insurance
                   </UU5.Bricks.Button>
                   <UU5.Bricks.Row display="flex">
                     {data.map(item => (
