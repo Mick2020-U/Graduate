@@ -60,7 +60,7 @@ export const Port = UU5.Common.VisualComponent.create({
                   <UU5.Bricks.LanguageSelector displayedLanguages={["en", "cz"]} />
                   <UU5.Bricks.Button colorSchema="green" onClick={this._openCreateBoatDetail}>
                     <UU5.Bricks.Icon icon="mdi-plus"/>
-                    Create
+                    Create Boat
                   </UU5.Bricks.Button>
                   <UU5.Bricks.Row display="flex">
                     {data.map(item => (
