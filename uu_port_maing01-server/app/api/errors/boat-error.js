@@ -86,7 +86,13 @@ const Detail = {
   
 };
 
+const Delete = {
+  UC_CODE: `${BOAT_ERROR_PREFIX}delete/`,
+  
+};
+
 module.exports = {
+  Delete,
   Detail,
   Get,
   ListByPier,

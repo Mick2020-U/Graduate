@@ -36,9 +36,31 @@ class BoatAbl {
     this.dao = DaoFactory.getDao("boat");
   }
 
-  async detail(awid, dtoIn) {
-    
+  async delete(awid, dtoIn) {
+    // let validationResult = this.validator.validate("pierDeleteDtoInType", dtoIn);
+    //
+    // let uuAppErrorMap = ValidationHelper.processValidationResult(
+    //   dtoIn,
+    //   validationResult,
+    //   WARNINGS.deletePier.unsupportedKeys.code,
+    //   Errors.DeletePier.InvalidDtoIn
+    // );
+    let dtoOut = {};
+    try {
+      await this.dao.delete(awid, dtoIn.id);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        console.log(e);
+      }
+      throw e;
+    }
+    // dtoOut.uuAppErrorMap = uuAppErrorMap;
+    return dtoOut;
   }
+
+  // async detail(awid, dtoIn) {
+  //
+  // }
 
   async get(awid, dtoIn) {
     return await this.dao.get(awid, dtoIn.id);

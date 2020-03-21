@@ -1,10 +1,11 @@
 {
   "{asid}": {
-    "profileList": ["AsidOwner"],
+    "profileList": ["AsidOwner","Public"],
     "permissionMap": {
       "{asidOwner}": ["AsidOwner"]
     },
-    "useCaseMap": {}
+    "useCaseMap": {
+    }
   },
   "*": {
     "profileList": ["Authorities","Executives","AwidOwner","Public"],
@@ -24,7 +25,9 @@
       "boat/get": ["Public"],
       "boat/detail": ["Public"],
       "captain/create": ["Public"],
-      "captain/list": ["Public"]
+      "captain/list": ["Public"],
+      "pier/update": ["Public"],
+      "boat/delete": ["Public"]
     }
   }
 }

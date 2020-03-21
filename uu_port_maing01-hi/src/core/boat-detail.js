@@ -3,6 +3,8 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
 import Calls from "../calls";
+import PierInfo from "./pier-info";
+import Port from "../routes/port";
 //@@viewOff:imports
 
 export const BoatDetail = UU5.Common.VisualComponent.create({
@@ -36,9 +38,25 @@ export const BoatDetail = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   // TODO on save func
-  _onSave(opt) {
-    console.log(opt);
-    Calls.boatCreate(opt.values);
+  async _onSave(opt) {
+    opt.option = "createBoat";
+    let pierAvailable = await Calls.pierUpdate(opt.values.pierId);
+    if (!pierAvailable.pier.message) {
+      let boat = await Calls.boatCreate(opt.values);
+      boat &&
+        UU5.Environment.setRoute({
+          component: <Port />,
+          url: { useCase: "port", parameters: {} }
+        });
+    } else {
+      alert("No free Space");
+    }
+    // await Calls.boatCreate(opt.values);
+    // this.reload();
+    /*UU5.Environment.setRoute({
+        component: <Port />,
+        url: { useCase: "port", parameters: {} }
+      });*/
   },
   //@@viewOff:private
 
@@ -79,20 +97,18 @@ export const BoatDetail = UU5.Common.VisualComponent.create({
                     >
                       <UU5.Forms.Text name={"code"} required={true} placeholder="code" size="m" />
                       <UU5.Forms.Select required={true} label="PierId" name="pierId">
-                      {piers && piers.map((item, index) => {
-                          return (
-                            <UU5.Forms.Select.Option content={item.code} key={item.id} value={item.id} />
-                          );
-                        })}
+                        {piers &&
+                          piers.map((item, index) => {
+                            return <UU5.Forms.Select.Option content={item.code} key={item.id} value={item.id} />;
+                          })}
                       </UU5.Forms.Select>
                       <UU5.Forms.Select required={true} label="CaptainId" name="captainId">
-                        {captains && captains.map((item, index) => {
-                          return (
-                            <UU5.Forms.Select.Option content={item.name} key={item.id} value={item.id} />
-                          );
-                        })}
+                        {captains &&
+                          captains.map((item, index) => {
+                            return <UU5.Forms.Select.Option content={item.name} key={item.id} value={item.id} />;
+                          })}
                       </UU5.Forms.Select>
-                      <UU5.Forms.Select name="insurance"label="insurance" required={true}>
+                      <UU5.Forms.Select name="insurance" label="insurance" required={true}>
                         <UU5.Forms.Select.Option value="true" />
                         <UU5.Forms.Select.Option value="false" />
                       </UU5.Forms.Select>

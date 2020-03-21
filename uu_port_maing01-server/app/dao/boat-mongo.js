@@ -24,7 +24,9 @@ class BoatMongo extends UuObjectDao {
   async create(uuObject) {
     return await super.insertOne(uuObject);
   }
-
+  async delete(awid, id) {
+    return await super.deleteOne({ awid, id });
+  }
   async list(awid, dtoIn, sortBy = "id", order = "asc") {
     let sort = {};
     sort[sortBy] = order;

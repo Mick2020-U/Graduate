@@ -31,6 +31,11 @@
         "httpMethod": "GET",
         "type": "CMD"
       },
+      "boat/delete": {
+        "realization": "api/controllers/BoatController.delete",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
       "boat/listByPier": {
         "realization": "api/controllers/BoatController.listByPier",
         "httpMethod": "GET",
@@ -74,6 +79,11 @@
       "captain/list": {
         "realization": "api/controllers/CaptainController.list",
         "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "pier/update": {
+        "realization": "api/controllers/PierController.update",
+        "httpMethod": "POST",
         "type": "CMD"
       }
     }

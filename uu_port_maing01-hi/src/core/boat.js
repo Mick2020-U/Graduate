@@ -83,6 +83,22 @@ export const Boat = UU5.Common.VisualComponent.create({
               });
             }}
           />
+          <UU5.Bricks.Button
+            style={{
+              position: "absolute",
+              background: "#f08080",
+              right: "1%",
+              top: "1%"
+            }}
+            content="&times;"
+            onClick={() => {
+              this.props.handleDelete(id).then(res => {
+                console.log(res, "delete");
+              });
+            }}
+          >
+            Delete
+          </UU5.Bricks.Button>
           {code && <UU5.Bricks.Text content={code} />}
           {boatType && <UU5.Bricks.Text content={boatType} />}
           {insurance && <UU5.Bricks.Text content={insurance} />}

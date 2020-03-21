@@ -30,6 +30,43 @@ class PierAbl {
     this.dao = DaoFactory.getDao("pier");
   }
 
+  async update(awid, dtoIn) {
+    try {
+      let findPier = await this.dao.get(awid, dtoIn.id);
+      if (!findPier) {
+        return {
+          message: "no pier"
+        };
+      }
+      let { slots, busy } = findPier;
+      console.log(busy, "look at busy");
+
+      if (busy === slots) {
+        return {
+          message: "no free space"
+        };
+      }
+      dtoIn.busy = findPier.busy + 1;
+      dtoIn.empty = findPier.empty - 1;
+      console.log(dtoIn, "look at dtoIn before Update");
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        console.log(e, "err");
+      }
+      throw e;
+    }
+    let dtoOut = {};
+    try {
+      dtoOut = await this.dao.update({ ...dtoIn, awid });
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        console.log(e, "err");
+      }
+      throw e;
+    }
+    return { ...dtoOut };
+  }
+
   async boats(awid, dtoIn) {
     return await this.dao.getBoats(awid, dtoIn.id);
   }

@@ -17,12 +17,11 @@ let Calls = {
     return Calls.call("get", commandUri, dtoIn);
   },
 
-
   loadAll(dtoIn) {
     return Promise.allSettled([
       Calls.call("get", Calls.getCommandUri("pier/list"), dtoIn),
       Calls.call("get", Calls.getCommandUri("captain/list"), dtoIn),
-      Calls.call("get", Calls.getCommandUri("boat/list"), dtoIn),
+      Calls.call("get", Calls.getCommandUri("boat/list"), dtoIn)
     ]);
   },
 
@@ -44,6 +43,20 @@ let Calls = {
     let commandUri = Calls.getCommandUri("pier/info");
     return new Promise((resolve, reject) => {
       Calls.call("get", commandUri, {
+        data: { id: dtoIn },
+        done: dtoOut =>
+          resolve({
+            pier: dtoOut
+          }),
+        fail: response => reject(response)
+      });
+    });
+  },
+
+  pierUpdate(dtoIn) {
+    let commandUri = Calls.getCommandUri("pier/update");
+    return new Promise((resolve, reject) => {
+      Calls.call("post", commandUri, {
         data: { id: dtoIn },
         done: dtoOut =>
           resolve({
@@ -82,8 +95,19 @@ let Calls = {
     });
   },
 
+  boatDelete(id) {
+    let commandUri = Calls.getCommandUri("boat/delete");
+    return new Promise((resolve, reject) => {
+      Calls.call("get", commandUri, { id });
+    });
+  },
 
-
+  addBoatToPier(dtoIn) {
+    return Promise.allSettled([
+      Calls.call("get", Calls.getCommandUri("boat/create"), dtoIn),
+      Calls.call("get", Calls.getCommandUri("pier/Update"), dtoIn)
+    ]);
+  },
   boatInfo(dtoIn) {
     let commandUri = Calls.getCommandUri("boat/get");
     return new Promise((resolve, reject) => {

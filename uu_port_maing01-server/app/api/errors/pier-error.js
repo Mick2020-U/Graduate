@@ -69,7 +69,13 @@ const Boats = {
   
 };
 
+const Update = {
+  UC_CODE: `${PIER_ERROR_PREFIX}update/`,
+  
+};
+
 module.exports = {
+  Update,
   Boats,
   Info,
   DeletePier,

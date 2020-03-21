@@ -3,6 +3,10 @@ const PierAbl = require("../../abl/pier-abl.js");
 
 class PierController {
 
+  update(ucEnv) {
+    return PierAbl.update(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
   boats(ucEnv) {
     return PierAbl.boats(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

@@ -8,8 +8,10 @@ class PierMongo extends UuObjectDao {
   async get(awid, id) {
     return await super.findOne({ awid, id });
   }
-  async getBoats(awid, id) {
-    return await super.db.boat.find({ pierId: id });
+  async update(uuObject) {
+    let filter = { id: uuObject.id, awid: uuObject.awid };
+
+    return await super.findOneAndUpdate(filter, uuObject, "NONE");
   }
   async create(uuObject) {
     return await super.insertOne(uuObject);
@@ -22,6 +24,10 @@ class PierMongo extends UuObjectDao {
   }
   async delete(awid, id) {
     return await super.deleteOne({ awid, id });
+  }
+
+  async getBoats(awid, id) {
+    return await super.db.boat.find({ pierId: id });
   }
 }
 
