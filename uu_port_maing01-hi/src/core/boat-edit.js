@@ -57,21 +57,25 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
   async _onSave(opt) {
     console.log(opt);
     if (this.state.boat.pierId !== opt.values.pierId) {
-      let pierAvailable = await Calls.pierUpdate(opt.values.pierId);
-      if (!pierAvailable.pier.message) {
-        await Calls.deleteBoatFromPier(this.state.boat.pierId);
-        await Calls.boatUpdate(opt.values);
-        // updatedBoat &&
-        //   UU5.Environment.setRoute({
-        //     component: <Port />,
-        //     url: { useCase: "port", parameters: {} }
-        //   });
-      } else {
-        alert("No free Space");
-      }
+      let query = { ...opt.values, id: this.state.boat.id };
+      let response = await Calls.boatUpdate(query);
+      console.log(response);
+      // let pierAvailable = await Calls.pierUpdate(opt.values.pierId);
+      // if (!pierAvailable.pier.message) {
+      //   await Calls.deleteBoatFromPier(this.state.boat.pierId);
+      //   let query = { ...opt.values, id: this.state.boat.id };
+      //   console.log(query, "look at query");
+      //   await Calls.boatUpdate(query);
+      //   // updatedBoat &&
+      //   //   UU5.Environment.setRoute({
+      //   //     component: <Port />,
+      //   //     url: { useCase: "port", parameters: {} }
+      //   //   });
+      // } else {
+      //   alert("No free Space");
+      // }
     }
-
-    // let pierAvailable = await Calls.pierUpdate(opt.values);
+    // await Calls.boatUpdate(opt.values);
   },
   //@@viewOff:private
 

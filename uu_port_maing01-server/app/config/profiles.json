@@ -4,8 +4,7 @@
     "permissionMap": {
       "{asidOwner}": ["AsidOwner"]
     },
-    "useCaseMap": {
-    }
+    "useCaseMap": {}
   },
   "*": {
     "profileList": ["Authorities","Executives","AwidOwner","Public"],
@@ -27,7 +26,8 @@
       "captain/create": ["Public"],
       "captain/list": ["Public"],
       "pier/update": ["Public"],
-      "boat/delete": ["Public"]
+      "boat/delete": ["Public"],
+      "docking/update": ["Public"]
     }
   }
 }

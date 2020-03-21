@@ -122,6 +122,7 @@ class BoatAbl {
     return dtoOut;
   }
   async update(awid, dtoIn) {
+    let data = { ...dtoIn };
     let validationResult = this.validator.validate("boatUpdateDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -150,7 +151,8 @@ class BoatAbl {
       throw e;
     }
     try {
-      dtoOut = await this.dao.update({ ...dtoIn, awid });
+      console.log(data, "updateObj");
+      dtoOut = await this.dao.update({ data, awid });
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         throw new Errors.UpdateBoat.BoatDaoUpdateFailed({ uuAppErrorMap }, e);

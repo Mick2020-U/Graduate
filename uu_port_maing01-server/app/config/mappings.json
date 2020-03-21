@@ -85,6 +85,11 @@
         "realization": "api/controllers/PierController.update",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "docking/update": {
+        "realization": "api/controllers/DockingController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

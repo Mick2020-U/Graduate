@@ -15,6 +15,9 @@
         },
         "captain": {
           "realization": "dao/CaptainMongo"
+        },
+        "docking": {
+          "realization": "dao/DockingMongo"
         }
       }
     }
