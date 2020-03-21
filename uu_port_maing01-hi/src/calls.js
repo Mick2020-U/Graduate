@@ -109,10 +109,16 @@ let Calls = {
     });
   },
 
-  boatDelete(id) {
-    let commandUri = Calls.getCommandUri("boat/delete");
+  boatDelete(dtoIn) {
     return new Promise((resolve, reject) => {
-      Calls.call("get", commandUri, { id });
+      Calls.call("get", Calls.getCommandUri("boat/delete"), {
+        data: { id: dtoIn.id },
+        done: boat =>
+          resolve({
+            boat
+          }),
+        fail: response => reject(response)
+      });
     });
   },
 
@@ -121,14 +127,6 @@ let Calls = {
     return new Promise((resolve, reject) => {
       Calls.call("post", Calls.getCommandUri("pier/update"), {
         data: { id: dtoIn.pierId, deleteBoat },
-        done: boat =>
-          resolve({
-            boat
-          }),
-        fail: response => reject(response)
-      });
-      Calls.call("get", Calls.getCommandUri("boat/delete"), {
-        data: { id: dtoIn.id },
         done: boat =>
           resolve({
             boat

@@ -55,25 +55,25 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   async _onSave(opt) {
-    console.log(opt);
+    // let query = { ...opt.values, id: this.state.boat.id };
+    // let response = await Calls.boatUpdate(query);
+    // console.log(response, "look at response");
     if (this.state.boat.pierId !== opt.values.pierId) {
-      let query = { ...opt.values, id: this.state.boat.id };
-      let response = await Calls.boatUpdate(query);
-      console.log(response);
-      // let pierAvailable = await Calls.pierUpdate(opt.values.pierId);
-      // if (!pierAvailable.pier.message) {
-      //   await Calls.deleteBoatFromPier(this.state.boat.pierId);
-      //   let query = { ...opt.values, id: this.state.boat.id };
-      //   console.log(query, "look at query");
-      //   await Calls.boatUpdate(query);
-      //   // updatedBoat &&
-      //   //   UU5.Environment.setRoute({
-      //   //     component: <Port />,
-      //   //     url: { useCase: "port", parameters: {} }
-      //   //   });
-      // } else {
-      //   alert("No free Space");
-      // }
+      let pierAvailable = await Calls.pierUpdate(opt.values.pierId);
+      if (!pierAvailable.pier.message) {
+        let deleted = await Calls.deleteBoatFromPier(this.state.boat);
+        console.log(deleted, "deleted");
+        let query = { ...opt.values, id: this.state.boat.id };
+        console.log(query, "look at query");
+        await Calls.boatUpdate(query);
+        // updatedBoat &&
+        //   UU5.Environment.setRoute({
+        //     component: <Port />,
+        //     url: { useCase: "port", parameters: {} }
+        //   });
+      } else {
+        alert("No free Space");
+      }
     }
     // await Calls.boatUpdate(opt.values);
   },
@@ -99,7 +99,7 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
               let captains = data[1].value.data.itemList;
               return (
                 <UU5.Bricks.Section {...this.getMainPropsToPass()}>
-                  <UU5.Forms.ContextModal ref_={modal => (this._modal = modal)} />
+                  <UU5.Forms.ContextModal ref_={modal => (this._modal = modal)}/>
                   <UU5.Bricks.Div className={this.getClassName("container")}>
                     <UU5.Common.Fragment>
                       <UU5.Bricks.Div className="uu5-common-right"></UU5.Bricks.Div>
@@ -113,35 +113,35 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
                         onUpdate={this._onSave}
                         values={this.state.boat}
                       >
-                        <UU5.Forms.Text name={"code"} required={true} placeholder="code" size="m" />
+                        <UU5.Forms.Text name={"code"} required={true} placeholder="code" size="m"/>
                         <UU5.Forms.Select required={true} label="PierId" name="pierId">
                           {piers &&
-                            piers.map((item, index) => {
-                              return <UU5.Forms.Select.Option content={item.code} key={item.id} value={item.id} />;
-                            })}
+                          piers.map((item, index) => {
+                            return <UU5.Forms.Select.Option content={item.code} key={item.id} value={item.id}/>;
+                          })}
                         </UU5.Forms.Select>
                         <UU5.Forms.Select required={true} label="CaptainId" name="captainId">
                           {captains &&
-                            captains.map((item, index) => {
-                              return <UU5.Forms.Select.Option content={item.name} key={item.id} value={item.id} />;
-                            })}
+                          captains.map((item, index) => {
+                            return <UU5.Forms.Select.Option content={item.name} key={item.id} value={item.id}/>;
+                          })}
                         </UU5.Forms.Select>
                         <UU5.Forms.Select name="insurance" label="insurance" required={true}>
-                          <UU5.Forms.Select.Option value="true" />
-                          <UU5.Forms.Select.Option value="false" />
+                          <UU5.Forms.Select.Option value="true"/>
+                          <UU5.Forms.Select.Option value="false"/>
                         </UU5.Forms.Select>
                         <UU5.Forms.Select name="boatType" label="Type of Boat">
-                          <UU5.Forms.Select.Option content="yacht" value="1" />
-                          <UU5.Forms.Select.Option content="barga" value="2" />
+                          <UU5.Forms.Select.Option content="yacht" value="1"/>
+                          <UU5.Forms.Select.Option content="barga" value="2"/>
                         </UU5.Forms.Select>
-                        <UU5.Forms.Controls />
+                        <UU5.Forms.Controls/>
                       </UU5.Forms.Form>
                     </UU5.Common.Fragment>
                   </UU5.Bricks.Div>
                 </UU5.Bricks.Section>
               );
             } else {
-              return <UU5.Bricks.Loading />;
+              return <UU5.Bricks.Loading/>;
             }
           }}
         </UU5.Common.DataManager>

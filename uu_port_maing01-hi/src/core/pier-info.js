@@ -58,6 +58,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
   //@@viewOn:private
   async _handleDelete(opt) {
     await Calls.deleteBoatFromPier(opt.data);
+    await Calls.boatDelete(opt.data);
   },
   //@@viewOff:private
 
