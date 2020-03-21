@@ -2,7 +2,7 @@
 const boatCreateDtoInType = shape({
   pierId: mongoId().isRequired(),
   code: uu5String(255).isRequired(),
-  boatType: oneOf(["yacht", "barga", "tanker", "containership"]),
+  boatType: oneOf(["1","2"]),
   captainId: id().isRequired(),
   state: oneOf(["initial", "active", "final"]),
   insurance: oneOf(["true", "false"]).isRequired(),

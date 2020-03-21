@@ -112,10 +112,9 @@ export const BoatDetail = UU5.Common.VisualComponent.create({
                         <UU5.Forms.Select.Option value="true" />
                         <UU5.Forms.Select.Option value="false" />
                       </UU5.Forms.Select>
-                      <UU5.Forms.Select name="category" label="Boat category">
-                        <UU5.Forms.Select.Option content="1" value="yacht" />
-                        <UU5.Forms.Select.Option content="2" value="barga" />
-                        <UU5.Forms.Select.Option content="3" value="tanker" />
+                      <UU5.Forms.Select name="boatType" label="Type of Boat">
+                        <UU5.Forms.Select.Option content="yacht" value="1" />
+                        <UU5.Forms.Select.Option content="barga" value="2" />
                       </UU5.Forms.Select>
                       <UU5.Forms.Controls />
                     </UU5.Forms.Form>
