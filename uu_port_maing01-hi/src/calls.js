@@ -16,6 +16,16 @@ let Calls = {
     let commandUri = Calls.getCommandUri("loadDemoContent");
     return Calls.call("get", commandUri, dtoIn);
   },
+
+
+  loadAll(dtoIn) {
+    return Promise.allSettled([
+      Calls.call("get", Calls.getCommandUri("pier/list"), dtoIn),
+      Calls.call("get", Calls.getCommandUri("captain/list"), dtoIn),
+      Calls.call("get", Calls.getCommandUri("boat/list"), dtoIn),
+    ]);
+  },
+
   pierList(dtoIn) {
     let commandUri = Calls.getCommandUri("pier/list");
     return new Promise((resolve, reject) => {
@@ -57,6 +67,22 @@ let Calls = {
       });
     });
   },
+
+  boatCreate(dtoIn) {
+    let commandUri = Calls.getCommandUri("boat/create");
+    return new Promise((resolve, reject) => {
+      Calls.call("post", commandUri, {
+        data: dtoIn,
+        done: boat =>
+          resolve({
+            boat
+          }),
+        fail: response => reject(response)
+      });
+    });
+  },
+
+
 
   boatInfo(dtoIn) {
     let commandUri = Calls.getCommandUri("boat/get");
