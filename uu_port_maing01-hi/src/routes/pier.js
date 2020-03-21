@@ -3,9 +3,7 @@ import * as UU5 from "uu5g04";
 import "uu5tilesg01";
 import "uu5g04-bricks";
 import Config from "../core/config/config.js";
-import Calls from "../calls";
 import PierInfo from "../core/pier-info";
-import BoatInfo from "../core/boat-info";
 import "./pier.css";
 //@@viewOff:imports
 

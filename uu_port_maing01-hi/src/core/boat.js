@@ -2,7 +2,6 @@
 import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
-import Calls from "../calls";
 import BoatInfo from "./boat-info";
 import BoatEdit from "./boat-edit";
 //@@viewOff:imports

@@ -35,7 +35,6 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
   async componentDidMount() {
     let query = this.props.params.id || this.props.params.url.parameters.id;
     let response = await Calls.boatInfo(query);
-    console.log(response, "look at response");
     this.setState({ boat: response.boat });
   },
   //@@viewOff:reactLifeCycle
@@ -54,7 +53,19 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-
+  async _onSave(opt) {
+    console.log(opt);
+    if (this.state.boat.pierId !== opt.values.pierId) {
+      console.log(this.state.boat.pierId, "old");
+      console.log(opt.values.pierId, "new");
+    }
+    // let boat = await Calls.boatUpdate(opt.values);
+    // boat &&
+    //   UU5.Environment.setRoute({
+    //     component: <Port />,
+    //     url: { useCase: "port", parameters: {} }
+    //   });
+  },
   //@@viewOff:private
 
   //@@viewOn:render
@@ -88,7 +99,7 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
                         spacing={8}
                         onSave={this._onSave}
                         onLoad={Calls.pierList}
-                        // onCancel={onCancel}
+                        onUpdate={this._onSave}
                         values={this.state.boat}
                       >
                         <UU5.Forms.Text name={"code"} required={true} placeholder="code" size="m" />
@@ -112,6 +123,15 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
                           <UU5.Forms.Select.Option content="yacht" value="1" />
                           <UU5.Forms.Select.Option content="barga" value="2" />
                         </UU5.Forms.Select>
+                        {/*<UU5.Bricks.Button*/}
+                        {/*  disabled={!data}*/}
+                        {/*  colorSchema="primary"*/}
+                        {/*  onClick={() => {*/}
+                        {/*    this._onSave(this._form);*/}
+                        {/*  }}*/}
+                        {/*>*/}
+                        {/*  Reload*/}
+                        {/*</UU5.Bricks.Button>*/}
                         <UU5.Forms.Controls />
                       </UU5.Forms.Form>
                     </UU5.Common.Fragment>

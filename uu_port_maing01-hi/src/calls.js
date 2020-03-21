@@ -95,6 +95,20 @@ let Calls = {
     });
   },
 
+  boatUpdate(dtoIn) {
+    let commandUri = Calls.getCommandUri("boat/update");
+    return new Promise((resolve, reject) => {
+      Calls.call("post", commandUri, {
+        data: dtoIn,
+        done: boat =>
+          resolve({
+            boat
+          }),
+        fail: response => reject(response)
+      });
+    });
+  },
+
   boatDelete(id) {
     let commandUri = Calls.getCommandUri("boat/delete");
     return new Promise((resolve, reject) => {

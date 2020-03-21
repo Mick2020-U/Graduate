@@ -3,7 +3,6 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
 import Calls from "../calls";
-import PierInfo from "./pier-info";
 import Port from "../routes/port";
 //@@viewOff:imports
 
@@ -39,7 +38,7 @@ export const BoatDetail = UU5.Common.VisualComponent.create({
   //@@viewOn:private
   // TODO on save func
   async _onSave(opt) {
-    opt.option = "createBoat";
+    // opt.option = "createBoat";
     let pierAvailable = await Calls.pierUpdate(opt.values.pierId);
     if (!pierAvailable.pier.message) {
       let boat = await Calls.boatCreate(opt.values);
@@ -75,7 +74,7 @@ export const BoatDetail = UU5.Common.VisualComponent.create({
           if (data) {
             let piers = data[0].value.data.itemList;
             let captains = data[1].value.data.itemList;
-            let boats = data[2].value.data.itemList;
+            // let boats = data[2].value.data.itemList;
             return (
               <UU5.Bricks.Section {...this.getMainPropsToPass()}>
                 <UU5.Forms.ContextModal ref_={modal => (this._modal = modal)} />
