@@ -57,7 +57,7 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
   async _onSave(opt) {
     console.log(opt);
     if (this.state.boat.pierId !== opt.values.pierId) {
-      let pierAvailable = await Calls.pierUpdate(this.state.boat);
+      let pierAvailable = await Calls.pierUpdate(opt.values.pierId);
       if (!pierAvailable.pier.message) {
         await Calls.deleteBoatFromPier(this.state.boat.pierId);
         await Calls.boatUpdate(opt.values);
