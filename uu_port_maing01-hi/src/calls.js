@@ -53,8 +53,36 @@ let Calls = {
     });
   },
 
-  pierUpdate(dtoIn) {
+  /*  pierUpdate(dtoIn) {
     let commandUri = Calls.getCommandUri("pier/update");
+    return new Promise((resolve, reject) => {
+      Calls.call("post", commandUri, {
+        data: { id: dtoIn },
+        done: dtoOut =>
+          resolve({
+            pier: dtoOut
+          }),
+        fail: response => reject(response)
+      });
+    });
+  },*/
+
+  pierDock(dtoIn) {
+    let commandUri = Calls.getCommandUri("pier/dock");
+    return new Promise((resolve, reject) => {
+      Calls.call("post", commandUri, {
+        data: { id: dtoIn },
+        done: dtoOut =>
+          resolve({
+            pier: dtoOut
+          }),
+        fail: response => reject(response)
+      });
+    });
+  },
+
+  pierUndock(dtoIn) {
+    let commandUri = Calls.getCommandUri("pier/undock");
     return new Promise((resolve, reject) => {
       Calls.call("post", commandUri, {
         data: { id: dtoIn },

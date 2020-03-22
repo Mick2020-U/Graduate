@@ -90,6 +90,26 @@
         "realization": "api/controllers/DockingController.update",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "boat/dock": {
+        "realization": "api/controllers/BoatController.dock",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "boat/undock": {
+        "realization": "api/controllers/BoatController.undock",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "pier/dock": {
+        "realization": "api/controllers/PierController.dock",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "pier/undock": {
+        "realization": "api/controllers/PierController.undock",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

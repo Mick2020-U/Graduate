@@ -16,6 +16,10 @@ const Lsi = {
     port: {
       cs: "port",
       en: "port"
+    },
+    pier: {
+      cs: "pier",
+      en: "pier"
     }
   },
 

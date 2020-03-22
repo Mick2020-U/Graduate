@@ -36,6 +36,14 @@ class BoatAbl {
     this.dao = DaoFactory.getDao("boat");
   }
 
+  async undock(awid, dtoIn) {
+
+  }
+
+  async dock(awid, dtoIn) {
+
+  }
+
   async delete(awid, dtoIn) {
     // let validationResult = this.validator.validate("pierDeleteDtoInType", dtoIn);
     //
@@ -67,7 +75,13 @@ class BoatAbl {
   }
 
   async listByPier(awid, dtoIn) {
-    return await this.dao.listByPier(awid, dtoIn.id);
+    let validationResult = this.validator.validate("boatListDtoInType", dtoIn);
+    let dtoOut = {};
+    let sort = dtoIn.hasOwnProperty("sortBy") ? (dtoIn.sortBy === "code" ? "code" : "time") : "code";
+    let order = dtoIn.hasOwnProperty("order") ? (dtoIn.order === "asc" ? 1 : -1) : 1;
+    dtoIn.insurance = dtoIn.insurance || null;
+    dtoOut = await this.dao.listByPier(awid, dtoIn, sort, order);
+    return dtoOut;
   }
   async list(awid, dtoIn) {
     let validationResult = this.validator.validate("boatListDtoInType", dtoIn);
@@ -151,7 +165,6 @@ class BoatAbl {
       throw e;
     }
     try {
-      console.log(data, "updateObj");
       dtoOut = await this.dao.update({ data, awid });
     } catch (e) {
       if (e instanceof ObjectStoreError) {

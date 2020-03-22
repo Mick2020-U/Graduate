@@ -74,7 +74,19 @@ const Update = {
   
 };
 
+const Dock = {
+  UC_CODE: `${PIER_ERROR_PREFIX}dock/`,
+  
+};
+
+const Undock = {
+  UC_CODE: `${PIER_ERROR_PREFIX}undock/`,
+  
+};
+
 module.exports = {
+  Undock,
+  Dock,
   Update,
   Boats,
   Info,

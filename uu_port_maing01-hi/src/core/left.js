@@ -3,13 +3,10 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-app";
-
 import Config from "./config/config.js";
 import Lsi from "../config/lsi.js";
 import Tools from "./tools.js";
 import LeftLink from "../bricks/left-link.js";
-import Calls from "../calls";
-import Pier from "../routes/pier";
 //@@viewOff:imports
 //@viewOff:imports
 
@@ -23,7 +20,7 @@ const tabHome = () => Tools.openNewTab({ code: "home" });
 
 export const Left = UU5.Common.VisualComponent.create({
   //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin],
+  mixins: [UU5.Common.BaseMixin, UU5.Common.RouteMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
@@ -67,11 +64,7 @@ export const Left = UU5.Common.VisualComponent.create({
   },
   //@@viewOff:private
   //@@viewOn:interface
-  async getPapers() {
-    let res = await Calls.pierList();
-    console.log(res, "getPapers");
-    return res;
-  },
+
   //@@viewOff:interface
   //@@viewOn:private
   _onItemClick(item, e) {

@@ -38,7 +38,7 @@ export const BoatDetail = UU5.Common.VisualComponent.create({
   //@@viewOn:private
   // TODO on save func
   async _onSave(opt) {
-    let pierAvailable = await Calls.pierUpdate(opt.values.pierId);
+    let pierAvailable = await Calls.pierDock(opt.values.pierId);
     if (!pierAvailable.pier.message) {
       let boat = await Calls.boatCreate(opt.values);
       boat &&

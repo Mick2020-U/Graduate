@@ -30,8 +30,27 @@ class PierAbl {
     this.dao = DaoFactory.getDao("pier");
   }
 
-  async update(awid, dtoIn) {
-    console.log(dtoIn, "look at DtoIn");
+  async undock(awid, dtoIn) {
+    let findPier = await this.dao.get(awid, dtoIn.id);
+    // if (!findPier) {
+    //   return {
+    //     message: "no pier"
+    //   };
+    // }
+    dtoIn.availableSlots = findPier.availableSlots + 1;
+    let dtoOut = {};
+    try {
+      dtoOut = await this.dao.update({ ...dtoIn, awid });
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        console.log(e, "err");
+      }
+      throw e;
+    }
+    return { ...dtoOut };
+  }
+
+  async dock(awid, dtoIn) {
     try {
       let findPier = await this.dao.get(awid, dtoIn.id);
       if (!findPier) {
@@ -39,21 +58,54 @@ class PierAbl {
           message: "no pier"
         };
       }
-      let { slots, availableSlots } = findPier;
-      if (dtoIn.deleteBoat) {
-        dtoIn.availableSlots = findPier.availableSlots + 1;
-        let dtoOut = {};
-        try {
-          dtoOut = await this.dao.update({ ...dtoIn, awid });
-        } catch (e) {
-          if (e instanceof ObjectStoreError) {
-            console.log(e, "err");
-          }
-          throw e;
-        }
-        return { ...dtoOut };
+      let { availableSlots } = findPier;
+      if (availableSlots === 0) {
+        return {
+          message: "no free space"
+        };
       }
-       if (availableSlots === 0) {
+      dtoIn.availableSlots = findPier.availableSlots - 1;
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        console.log(e, "err");
+      }
+      throw e;
+    }
+    let dtoOut = {};
+    try {
+      dtoOut = await this.dao.update({ ...dtoIn, awid });
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        console.log(e, "err");
+      }
+      throw e;
+    }
+    return { ...dtoOut };
+  }
+
+  async update(awid, dtoIn) {
+    try {
+      let findPier = await this.dao.get(awid, dtoIn.id);
+      if (!findPier) {
+        return {
+          message: "no pier"
+        };
+      }
+      let { availableSlots } = findPier;
+      // if (dtoIn.deleteBoat) {
+      //   dtoIn.availableSlots = findPier.availableSlots + 1;
+      //   let dtoOut = {};
+      //   try {
+      //     dtoOut = await this.dao.update({ ...dtoIn, awid });
+      //   } catch (e) {
+      //     if (e instanceof ObjectStoreError) {
+      //       console.log(e, "err");
+      //     }
+      //     throw e;
+      //   }
+      //   return { ...dtoOut };
+      // }
+      if (availableSlots === 0) {
         return {
           message: "no free space"
         };

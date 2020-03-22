@@ -63,40 +63,44 @@ const UpdateBoat = {
       this.message = "Get boat by boat Dao get failed.";
     }
   }
-
 };
-
-const ListById = {
-  UC_CODE: `${BOAT_ERROR_PREFIX}listById/`,
-  
-};
-
 const ListByPier = {
   UC_CODE: `${BOAT_ERROR_PREFIX}listByPier/`,
-  
+
 };
 
 const Get = {
   UC_CODE: `${BOAT_ERROR_PREFIX}get/`,
-  
+
 };
 
 const Detail = {
   UC_CODE: `${BOAT_ERROR_PREFIX}detail/`,
-  
+
 };
 
 const Delete = {
   UC_CODE: `${BOAT_ERROR_PREFIX}delete/`,
+
+};
+
+const Dock = {
+  UC_CODE: `${BOAT_ERROR_PREFIX}dock/`,
+  
+};
+
+const Undock = {
+  UC_CODE: `${BOAT_ERROR_PREFIX}undock/`,
   
 };
 
 module.exports = {
+  Undock,
+  Dock,
   Delete,
   Detail,
   Get,
   ListByPier,
-  ListById,
   UpdateBoat,
   BoatList,
   CreateBoat

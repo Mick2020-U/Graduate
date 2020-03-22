@@ -45,20 +45,18 @@ export const BoatInfo = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    //console.log(this.props, "props at boat========================");
-    // const {code, boatType, src, state} = this.props.data;
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
         <UU5.Common.DataManager onLoad={this._onLoad}>
           {({ viewState, errorState, errorData, data, handleUpdate }) => {
             if (data) {
-              // console.log(data, "data===============");
-              let { code, state, boatType } = data;
+              let { code, insurance, boatType } = data;
               return (
                 <UU5.Bricks.Card>
-                  {code && <UU5.Bricks.Text content={code} />}
-                  {state && <UU5.Bricks.Text content={state} />}
-                  {boatType && <UU5.Bricks.Text content={boatType} />}
+                  <UU5.Bricks.Text>Boat Code {<UU5.Bricks.Text content={code} />} </UU5.Bricks.Text>
+                  <UU5.Bricks.Text>Boat Type {<UU5.Bricks.Text content={boatType} />} </UU5.Bricks.Text>
+                  <UU5.Bricks.Text>Insurance {<UU5.Bricks.Text content={insurance} />} </UU5.Bricks.Text>
+
                 </UU5.Bricks.Card>
               );
             } else {
@@ -66,11 +64,6 @@ export const BoatInfo = UU5.Common.VisualComponent.create({
             }
           }}
         </UU5.Common.DataManager>
-         <Plus4U5.Bricks.Image
-          style={{ display: "block", margin: "auto", width: "50%", background: "#f5f5f5" }}
-          src={"https://static01.nyt.com/images/2020/03/07/business/07wealth-01/06wealth-01-mediumSquareAt3X.jpg"}
-          alt={"No-img"}
-        />
       </UU5.Bricks.Div>
     );
   }

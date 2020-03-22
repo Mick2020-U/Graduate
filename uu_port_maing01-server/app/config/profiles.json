@@ -19,7 +19,6 @@
       "pier/delete": ["Public"],
       "pier/info": ["Public"],
       "pier/boats": ["Public"],
-      "boat/listById": ["Public"],
       "boat/listByPier": ["Public"],
       "boat/get": ["Public"],
       "boat/detail": ["Public"],
@@ -27,7 +26,11 @@
       "captain/list": ["Public"],
       "pier/update": ["Public"],
       "boat/delete": ["Public"],
-      "docking/update": ["Public"]
+      "docking/update": ["Public"],
+      "boat/dock": ["Public"],
+      "boat/undock": ["Public"],
+      "pier/dock": ["Public"],
+      "pier/undock": ["Public"]
     }
   }
 }

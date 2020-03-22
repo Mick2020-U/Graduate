@@ -2,7 +2,6 @@
 const { UuObjectDao } = require("uu_appg01_server").ObjectStore;
 
 class BoatMongo extends UuObjectDao {
-
   async createSchema() {
     await super.createIndex({ awid: 1, _id: 1 }, { unique: true });
   }
@@ -40,8 +39,10 @@ class BoatMongo extends UuObjectDao {
     return await super.findOneAndUpdate(filter, uuObject.data, "NONE");
   }
 
-  async listByPier(awid, id) {
-    return await super.find({ pierId: id });
+  async listByPier(awid, dtoIn, sortBy = "id", order = "asc") {
+    let sort = {};
+    sort[sortBy] = order;
+    return await super.find({ pierId: dtoIn.id });
   }
 }
 

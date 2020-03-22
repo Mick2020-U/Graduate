@@ -3,6 +3,14 @@ const BoatAbl = require("../../abl/boat-abl.js");
 
 class BoatController {
 
+  undock(ucEnv) {
+    return BoatAbl.undock(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
+  dock(ucEnv) {
+    return BoatAbl.dock(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
   delete(ucEnv) {
     return BoatAbl.delete(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

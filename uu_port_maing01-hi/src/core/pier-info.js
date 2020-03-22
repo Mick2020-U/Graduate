@@ -27,26 +27,17 @@ export const PierInfo = UU5.Common.VisualComponent.create({
   //@@viewOff:getDefaultProps
 
   //@@viewOn:reactLifeCycle
-  /*  getInitialState() {
-    return {
-      pierInfo: {},
-      boats: [],
-      currentBoat: {}
-    };
-  },*/
-  /*  async componentDidMount() {
-    let res = await Calls.boatsById("5e73620c5ae50e7a722e0149");
-    // console.log(res, "res");
-  },*/
+
   //@@viewOff:reactLifeCycle
 
   //@@viewOn:interface
   async loadPier() {
-    let query = this.props.params.id || this.props.data.item.id;
+    let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
+    console.log(query);
     return await Calls.pierInfo(query);
   },
   async loadBoats() {
-    let query = this.props.params.id || this.props.data.item.id;
+    let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
     let res = await Calls.boatsById(query);
     return res.boats.itemList;
   },
@@ -74,12 +65,12 @@ export const PierInfo = UU5.Common.VisualComponent.create({
               // console.log(slots, "slots");
               return (
                 <UU5.Bricks.Card>
-                  {code && <UU5.Bricks.Text content={code} />}
-                  {state && <UU5.Bricks.Text content={state} />}
+                  <UU5.Bricks.Text>Pier # {<UU5.Bricks.Text content={code} />} </UU5.Bricks.Text>
+                  <UU5.Bricks.Text>Pier Capacity {<UU5.Bricks.Text content={slots} />} </UU5.Bricks.Text>
+                  <UU5.Bricks.Text>Busy {<UU5.Bricks.Text content={busy} />} Slots </UU5.Bricks.Text>
                   <UU5.Bricks.Text>
-                    available {availableSlots && <UU5.Bricks.Text content={availableSlots} />}{" "}
+                    available {availableSlots && <UU5.Bricks.Text content={availableSlots} />} Slots
                   </UU5.Bricks.Text>
-                  <UU5.Bricks.Text>busy {<UU5.Bricks.Text content={busy} />} </UU5.Bricks.Text>
                 </UU5.Bricks.Card>
               );
             } else {
@@ -95,22 +86,11 @@ export const PierInfo = UU5.Common.VisualComponent.create({
           onUpdate={Calls.update}
           onDelete={this._handleDelete}
         >
-          {({
-            viewState,
-            errorState,
-            errorData,
-            data,
-            handleLoad,
-            handleReload,
-            handleCreate,
-            handleUpdate,
-            handleDelete
-          }) => {
+          {({ viewState, errorState, errorData, data, handleLoad, handleReload, handleDelete }) => {
             if (errorState) {
               // error
               return "Error";
             } else if (data) {
-              // console.log(data, "look at data");
               // ready
               return (
                 <UU5.Bricks.Div>
@@ -124,7 +104,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
                       );
                     }}
                   >
-                    Switch sort by asc desc
+                    Sort By insurance yes-no
                   </UU5.Bricks.Button>
                   <UU5.Bricks.Button
                     disabled={!data}
@@ -136,8 +116,23 @@ export const PierInfo = UU5.Common.VisualComponent.create({
                       );
                     }}
                   >
-                    Sort by insurance
+                    Filter by Class
                   </UU5.Bricks.Button>
+                  <UU5.Bricks.Button
+                    disabled={!data}
+                    colorSchema="warning"
+                    onClick={() => {
+                      handleReload().then(
+                        data => console.log("reload success", data),
+                        data => console.log("reload fail", data)
+                      );
+                    }}
+                  >
+                    Sort by Boats
+                  </UU5.Bricks.Button>
+                  <UU5.Bricks.Card>
+                    <UU5.Bricks.Text>List of assigned Boats</UU5.Bricks.Text>
+                  </UU5.Bricks.Card>
                   <UU5.Bricks.Row display="flex">
                     {data.map(item => (
                       <UU5.Bricks.Column colWidth="m-6 l-4 xl-3" key={item.id}>
