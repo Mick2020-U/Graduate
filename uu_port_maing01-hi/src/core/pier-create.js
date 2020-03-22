@@ -38,13 +38,11 @@ export const PierCreate = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   async _onSave(opt) {
-    // console.log(opt.values);
     let pier = {
       code: opt.values.code,
       slots: +opt.values.slots,
       state: opt.values.state
     };
-    console.log(pier);
     let result = await Calls.pierCreate(pier);
     result &&
       UU5.Environment.setRoute({

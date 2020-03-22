@@ -36,9 +36,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
   async componentDidMount() {
     let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
     let response = await Calls.boatsById(query);
-    console.log(response, "response in pier info");
     this.setState({ boats: response.boats.itemList });
-    console.log(this.state, "look at state");
   },
   //@@viewOff:reactLifeCycle
 
@@ -46,7 +44,6 @@ export const PierInfo = UU5.Common.VisualComponent.create({
   async loadPier() {
     let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
     //@@viewOff:imports
-    // console.log(query);
     return await Calls.pierInfo(query);
   },
   async loadBoats() {
@@ -56,7 +53,6 @@ export const PierInfo = UU5.Common.VisualComponent.create({
   },
 
   async sortByInsurance(opt) {
-    console.log(opt);
     let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
     let res = await Calls.boatsById(query);
     let filtered = res.boats.itemList.sort((a, b) => (a.insurance > b.insurance ? 1 : -1));
