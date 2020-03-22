@@ -178,8 +178,8 @@ export const PierInfo = UU5.Common.VisualComponent.create({
                   </UU5.Bricks.Button>
                   <UU5.Bricks.Card className="list">
                     <UU5.Bricks.Text className="list-text">List of assigned Boats</UU5.Bricks.Text>
-                  </UU5.Bricks.Card>
-                  <UU5.Bricks.Row className="pier-row">
+                  </UU5.Bricks.Card >
+                  <UU5.Bricks.Row className="pier-row" >
                     {this.state.boats.map(item => (
                       <UU5.Bricks.Column colWidth="m-12 l-8 xl-6" key={item.id}>
                         <Boat data={item} handleDelete={handleDelete} handleReload={handleReload} />
