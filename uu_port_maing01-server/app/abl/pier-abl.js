@@ -148,14 +148,12 @@ class PierAbl {
 
   async list(awid, dtoIn, uuAppErrorMap = {}) {
     const validationResult = this.validator.validate("pierListDtoInType", dtoIn);
-
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
       WARNINGS.list.unsupportedKeys.code,
       Errors.PierList.InvalidDtoIn
     );
-
     const pierList = await this.dao.list(awid, dtoIn.pageInfo);
 
     let dtoOut = {

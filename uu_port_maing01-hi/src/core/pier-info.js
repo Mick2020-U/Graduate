@@ -28,14 +28,25 @@ export const PierInfo = UU5.Common.VisualComponent.create({
   //@@viewOff:getDefaultProps
 
   //@@viewOn:reactLifeCycle
-
+  getInitialState() {
+    return {
+      boats: []
+    };
+  },
+  async componentDidMount() {
+    let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
+    let response = await Calls.boatsById(query);
+    console.log(response, "response in pier info");
+    this.setState({ boats: response.boats.itemList });
+    console.log(this.state, "look at state");
+  },
   //@@viewOff:reactLifeCycle
 
   //@@viewOn:interface
   async loadPier() {
     let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
     //@@viewOff:imports
-    console.log(query);
+    // console.log(query);
     return await Calls.pierInfo(query);
   },
   async loadBoats() {
@@ -48,17 +59,32 @@ export const PierInfo = UU5.Common.VisualComponent.create({
     console.log(opt);
     let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
     let res = await Calls.boatsById(query);
-    return res.boats.itemList.sort((a, b) => (a.insurance > b.insurance ? 1 : -1));
+    let filtered = res.boats.itemList.sort((a, b) => (a.insurance > b.insurance ? 1 : -1));
+    this.setState(() => {
+      return {
+        boats: filtered
+      };
+    });
   },
   async sortByClass() {
     let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
     let res = await Calls.boatsById(query);
-    return res.boats.itemList.sort((a, b) => (a.boatType > b.boatType ? 1 : -1));
+    let filtered = res.boats.itemList.sort((a, b) => (a.boatType > b.boatType ? 1 : -1));
+    this.setState(() => {
+      return {
+        boats: filtered
+      };
+    });
   },
   async sortByCode() {
     let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
     let res = await Calls.boatsById(query);
-    return res.boats.itemList.sort((a, b) => (a.code > b.code ? 1 : -1));
+    let filtered = res.boats.itemList.sort((a, b) => (a.code > b.code ? 1 : -1));
+    this.setState(() => {
+      return {
+        boats: filtered
+      };
+    });
   },
   //@@viewOff:interface
 
@@ -120,7 +146,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
                     disabled={!data}
                     colorSchema="primary"
                     onClick={() => {
-                      handleReload().then(
+                      this.sortByInsurance().then(
                         data => console.log("reload success", data),
                         data => console.log("reload fail", data)
                       );
@@ -156,7 +182,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
                     <UU5.Bricks.Text className="list-text">List of assigned Boats</UU5.Bricks.Text>
                   </UU5.Bricks.Card>
                   <UU5.Bricks.Row className="pier-row">
-                    {data.map(item => (
+                    {this.state.boats.map(item => (
                       <UU5.Bricks.Column colWidth="m-12 l-8 xl-6" key={item.id}>
                         <Boat data={item} handleDelete={handleDelete} handleReload={handleReload} />
                       </UU5.Bricks.Column>
