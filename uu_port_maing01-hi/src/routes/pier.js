@@ -46,10 +46,7 @@ export const Pier = UU5.Common.VisualComponent.create({
     const busy = slots - availableSlots;
     return (
       <UU5.Bricks.Column className="wrapper" colWidth="m-6 l-4 xl-3">
-        <UU5.Bricks.Section
-          style={{
-            position: "relative"
-          }}
+        <UU5.Bricks.Section className="pier-section"
         >
           <UU5.Bricks.Button
             content={"Move to pier"}

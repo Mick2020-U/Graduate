@@ -5,6 +5,7 @@ import "uu5tilesg01";
 import Config from "./config/config.js";
 import Calls from "../calls";
 import Pier from "./pier";
+import "./port.css";
 //@@viewOff:imports
 
 export const Port = UU5.Common.VisualComponent.create({
@@ -38,11 +39,10 @@ export const Port = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   _openCreateBoatDetail() {
-    // console.log(UU5.Environment, "look at environment");
     UU5.Environment.setRoute("boatDetail");
+    //@@viewOff:imports
   },
   _openCreatePierDetail() {
-    // console.log(UU5.Environment, "look at environment");
     UU5.Environment.setRoute("pierCreate");
   },
   //@@viewOff:private
@@ -50,40 +50,35 @@ export const Port = UU5.Common.VisualComponent.create({
   //@@viewOn:render
   render() {
     return (
-      <UU5.Bricks.Div {...this.getMainPropsToPass()}>
+      <UU5.Bricks.Resize className="port-container" {...this.getMainPropsToPass()}>
         <UU5.Common.ListDataManager onLoad={Calls.pierList} onDelete={Calls.deletePier}>
           {({ viewState, errorState, errorData, data, handleCreate, handleLoad, handleDelete }) => {
             if (errorState) {
               // error
               return <UU5.Bricks.Error errorData={errorData} />;
             } else if (data) {
-              // console.log(data);
               // ready
               return (
-                <UU5.Bricks.Resize>
-                  <UU5.Bricks.LanguageSelector displayedLanguages={["en", "cz"]} />
-                  <UU5.Bricks.Button colorSchema="green" onClick={this._openCreateBoatDetail}>
-                    <UU5.Bricks.Icon icon="mdi-plus"/>
-                    Create Boat
-                  </UU5.Bricks.Button>
-                  <UU5.Bricks.Button colorSchema="green" onClick={this._openCreatePierDetail}>
-                    <UU5.Bricks.Icon icon="mdi-plus"/>
-                    Create Pier
-                  </UU5.Bricks.Button>
-                  <UU5.Bricks.Row display="flex">
+                <UU5.Bricks.Container className="nav-container">
+                  <UU5.Bricks.Div className="button-container">
+                    <UU5.Bricks.Button colorSchema="green" className="boat-icon" onClick={this._openCreateBoatDetail}>
+                      <UU5.Bricks.Icon  icon="mdi-plus" />
+                      Create Boat
+                    </UU5.Bricks.Button>
+                    <UU5.Bricks.Button colorSchema="green" onClick={this._openCreatePierDetail}>
+                      <UU5.Bricks.Icon icon="mdi-plus" />
+                      Create Pier
+                    </UU5.Bricks.Button>
+                  </UU5.Bricks.Div>
+
+                  <UU5.Bricks.Row>
                     {data.map(item => (
-                      <UU5.Common.Fragment key={UU5.Common.Tools.generateUUID(8)}>
-                        <UU5.Bricks.Column
-                          style={{
-                            position: "relative"
-                          }}
-                        >
-                          <Pier item={item} key={item.id} handleDelete={handleDelete} />
-                        </UU5.Bricks.Column>
-                      </UU5.Common.Fragment>
+                      <UU5.Bricks.Column className="pier-wrapper" colWidth="m-6 l-4 xl-6" key={item.id}>
+                        <Pier className="pier" item={item} key={item.id} handleDelete={handleDelete} />
+                      </UU5.Bricks.Column>
                     ))}
                   </UU5.Bricks.Row>
-                </UU5.Bricks.Resize>
+                </UU5.Bricks.Container>
               );
             } else {
               // loading
@@ -91,7 +86,7 @@ export const Port = UU5.Common.VisualComponent.create({
             }
           }}
         </UU5.Common.ListDataManager>
-      </UU5.Bricks.Div>
+      </UU5.Bricks.Resize>
     );
   }
   //@@viewOff:render

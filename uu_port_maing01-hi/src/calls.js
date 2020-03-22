@@ -176,7 +176,19 @@ let Calls = {
       });
     });
   },
-
+  pierCreate(dtoIn) {
+    let commandUri = Calls.getCommandUri("pier/create");
+    return new Promise((resolve, reject) => {
+      Calls.call("post", commandUri, {
+        data: dtoIn,
+        done: pier =>
+          resolve({
+            pier
+          }),
+        fail: response => reject(response)
+      });
+    });
+  },
   deletePier(id) {
     let commandUri = Calls.getCommandUri("pier/delete");
     return new Promise((resolve, reject) => {

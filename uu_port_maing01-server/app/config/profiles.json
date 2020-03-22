@@ -10,7 +10,7 @@
     "profileList": ["Authorities","Executives","AwidOwner","Public"],
     "useCaseMap": {
       "init": ["AwidOwner"],
-      "defaultUve": ["Public"],
+      "defaultUve": ["Authorities"],
       "boat/create": ["Public"],
       "boat/list": ["Public"],
       "boat/update": ["Public"],

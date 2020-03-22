@@ -1,0 +1,17 @@
+.boat-card {
+  padding: 1%;
+  background: whitesmoke;
+}
+
+.boat-delete {
+  position: absolute;
+  background: #f08080;
+  right: 1%;
+  bottom: 1%;
+ }
+
+.boat-edit {
+  position: absolute;
+  right: 1%;
+  top: 1%;
+}

@@ -3,9 +3,7 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
 import Calls from "../calls";
-import Port from "../routes/port";
 import BoatInfo from "./boat-info";
-// import Port from "../routes/port";
 //@@viewOff:imports
 
 export const BoatEdit = UU5.Common.VisualComponent.create({

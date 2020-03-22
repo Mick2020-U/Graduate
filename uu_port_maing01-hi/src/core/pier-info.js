@@ -4,6 +4,7 @@ import "uu5g04-bricks";
 import Config from "./config/config.js";
 import Calls from "../calls";
 import Boat from "./boat";
+import "./pier-info.css";
 //@@viewOff:imports
 
 export const PierInfo = UU5.Common.VisualComponent.create({
@@ -33,6 +34,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
   //@@viewOn:interface
   async loadPier() {
     let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
+    //@@viewOff:imports
     console.log(query);
     return await Calls.pierInfo(query);
   },
@@ -42,10 +44,21 @@ export const PierInfo = UU5.Common.VisualComponent.create({
     return res.boats.itemList;
   },
 
-  async sortBoats() {
+  async sortByInsurance(opt) {
+    console.log(opt);
     let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
     let res = await Calls.boatsById(query);
     return res.boats.itemList.sort((a, b) => (a.insurance > b.insurance ? 1 : -1));
+  },
+  async sortByClass() {
+    let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
+    let res = await Calls.boatsById(query);
+    return res.boats.itemList.sort((a, b) => (a.boatType > b.boatType ? 1 : -1));
+  },
+  async sortByCode() {
+    let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
+    let res = await Calls.boatsById(query);
+    return res.boats.itemList.sort((a, b) => (a.code > b.code ? 1 : -1));
   },
   //@@viewOff:interface
 
@@ -62,19 +75,23 @@ export const PierInfo = UU5.Common.VisualComponent.create({
   //@@viewOn:render
   render() {
     return (
-      <UU5.Bricks.Div {...this.getMainPropsToPass()}>
+      <UU5.Bricks.Resize className="port-container" {...this.getMainPropsToPass()}>
         <UU5.Common.DataManager onLoad={this.loadPier}>
           {({ data }) => {
             if (data) {
               let { code, slots, availableSlots } = data.pier;
               const busy = slots - availableSlots;
               return (
-                <UU5.Bricks.Card>
-                  <UU5.Bricks.Text>Pier # {<UU5.Bricks.Text content={code} />} </UU5.Bricks.Text>
-                  <UU5.Bricks.Text>Pier Capacity {<UU5.Bricks.Text content={slots} />} </UU5.Bricks.Text>
-                  <UU5.Bricks.Text>Busy {<UU5.Bricks.Text content={busy} />} Slots </UU5.Bricks.Text>
-                  <UU5.Bricks.Text>
-                    available {availableSlots && <UU5.Bricks.Text content={availableSlots} />} Slots
+                <UU5.Bricks.Card className="pier-entity">
+                  <UU5.Bricks.Text className="pier-text">Pier # {<UU5.Bricks.Text content={code} />} </UU5.Bricks.Text>
+                  <UU5.Bricks.Text className="pier-text">
+                    Pier Capacity {<UU5.Bricks.Text content={slots} />}{" "}
+                  </UU5.Bricks.Text>
+                  <UU5.Bricks.Text className="pier-text">
+                    Busy {<UU5.Bricks.Text content={busy} />} Slots{" "}
+                  </UU5.Bricks.Text>
+                  <UU5.Bricks.Text className="pier-text">
+                    Available {availableSlots && <UU5.Bricks.Text content={availableSlots} />} Slots
                   </UU5.Bricks.Text>
                 </UU5.Bricks.Card>
               );
@@ -86,7 +103,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
 
         <UU5.Common.ListDataManager
           onLoad={this.loadBoats}
-          onReload={this.sortBoats}
+          onReload={this.sortByInsurance}
           onCreate={Calls.create}
           onUpdate={Calls.update}
           onDelete={this._handleDelete}
@@ -98,7 +115,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
             } else if (data) {
               // ready
               return (
-                <UU5.Bricks.Div>
+                <UU5.Bricks.Div className="sort-container">
                   <UU5.Bricks.Button
                     disabled={!data}
                     colorSchema="primary"
@@ -115,7 +132,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
                     disabled={!data}
                     colorSchema="danger"
                     onClick={() => {
-                      handleReload().then(
+                      this.sortByClass().then(
                         data => console.log("reload success", data),
                         data => console.log("reload fail", data)
                       );
@@ -127,20 +144,20 @@ export const PierInfo = UU5.Common.VisualComponent.create({
                     disabled={!data}
                     colorSchema="warning"
                     onClick={() => {
-                      handleReload().then(
+                      this.sortByCode().then(
                         data => console.log("reload success", data),
                         data => console.log("reload fail", data)
                       );
                     }}
                   >
-                    Sort by Boats
+                    Sort by Code
                   </UU5.Bricks.Button>
-                  <UU5.Bricks.Card>
-                    <UU5.Bricks.Text>List of assigned Boats</UU5.Bricks.Text>
+                  <UU5.Bricks.Card className="list">
+                    <UU5.Bricks.Text className="list-text">List of assigned Boats</UU5.Bricks.Text>
                   </UU5.Bricks.Card>
-                  <UU5.Bricks.Row display="flex">
+                  <UU5.Bricks.Row className="pier-row">
                     {data.map(item => (
-                      <UU5.Bricks.Column colWidth="m-6 l-4 xl-3" key={item.id}>
+                      <UU5.Bricks.Column colWidth="m-12 l-8 xl-6" key={item.id}>
                         <Boat data={item} handleDelete={handleDelete} handleReload={handleReload} />
                       </UU5.Bricks.Column>
                     ))}
@@ -153,7 +170,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
             }
           }}
         </UU5.Common.ListDataManager>
-      </UU5.Bricks.Div>
+      </UU5.Bricks.Resize>
     );
   }
   //@@viewOff:render

@@ -4,6 +4,7 @@ import "uu5g04-bricks";
 import Config from "./config/config.js";
 import BoatInfo from "./boat-info";
 import BoatEdit from "./boat-edit";
+import "./boat.css";
 //@@viewOff:imports
 
 export const Boat = UU5.Common.VisualComponent.create({
@@ -49,9 +50,10 @@ export const Boat = UU5.Common.VisualComponent.create({
   render() {
     let { code, boatType, insurance, id } = this.props.data;
     return (
-      <UU5.Bricks.Card>
+      <UU5.Bricks.Card className="boat-card">
         <UU5.Bricks.Button
           content={"Click"}
+          colorSchema="green"
           onClick={() => {
             UU5.Environment.setRoute({
               component: <BoatInfo data={this.props} />,
@@ -60,13 +62,9 @@ export const Boat = UU5.Common.VisualComponent.create({
           }}
         />
         <UU5.Bricks.Button
-          style={{
-            position: "absolute",
-            background: "#f08080",
-            right: "1%",
-            bottom: "1%"
-          }}
+          className="boat-delete"
           content="&times;"
+          colorSchema="red"
           onClick={() => {
             this.props.handleDelete({ ...this.props }).then(res => {
               this.props.handleReload();
@@ -78,20 +76,19 @@ export const Boat = UU5.Common.VisualComponent.create({
         <UU5.Bricks.Text>Boat Code {<UU5.Bricks.Text content={code} />} </UU5.Bricks.Text>
         <UU5.Bricks.Text>Boat Type {<UU5.Bricks.Text content={boatType} />} </UU5.Bricks.Text>
         <UU5.Bricks.Text>Insurance {<UU5.Bricks.Text content={insurance} />} </UU5.Bricks.Text>
-        <UU5.Bricks.Div className="placeholder"> </UU5.Bricks.Div>
-        <UU5.Bricks.Button
+        <Plus4U5.Bricks.Image
+          style={{ display: "block", margin: "auto", padding: "2%", width: "50%", background: "#f5f5f5" }}
+          src={"https://cdn3.iconfinder.com/data/icons/vacation-4/32/vacation_34-512.png"}
+          alt={"No-img"}
+        />
+        <UU5.Bricks.Button className="boat-edit"
           content={"Edit Boat"}
+          colorSchema="warning"
           onClick={() => {
             UU5.Environment.setRoute({
               component: <BoatEdit data={this.props} />,
               url: { useCase: "boatEdit", parameters: { id } }
             });
-          }}
-          style={{
-            position: "absolute",
-            background: "wheat",
-            right: "1%",
-            top: "1%"
           }}
         />
       </UU5.Bricks.Card>

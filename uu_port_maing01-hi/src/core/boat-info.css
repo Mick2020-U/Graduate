@@ -1,0 +1,21 @@
+.boat-card {
+  background: lightgrey;
+  padding: 1%;
+}
+
+.boat-section {
+  background: whitesmoke;
+  text-align: center;
+  border: 1px solid deepskyblue;
+  /*margin: 1%;*/
+}
+.boat-info-text {
+  font-size: 20px;
+  font-style: italic;
+}
+.boat-img {
+  margin: 15px auto;
+  background: #f5f5f5;
+  padding: 2%;
+  width: 50%;
+}

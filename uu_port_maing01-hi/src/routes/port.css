@@ -1,0 +1,26 @@
+
+.nav-container {
+  background: whitesmoke;
+
+
+}
+
+.button-container {
+  background: whitesmoke;
+  padding: 5px;
+  text-align: center;
+}
+
+.pier-wrapper{
+  padding: 1%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boat-icon {
+  margin: 1px;
+}
+
+

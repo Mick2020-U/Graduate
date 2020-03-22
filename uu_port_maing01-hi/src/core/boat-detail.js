@@ -50,12 +50,6 @@ export const BoatDetail = UU5.Common.VisualComponent.create({
     } else {
       alert("No free Space");
     }
-    // await Calls.boatCreate(opt.values);
-    // this.reload();
-    /*UU5.Environment.setRoute({
-        component: <Port />,
-        url: { useCase: "port", parameters: {} }
-      });*/
   },
   //@@viewOff:private
 
@@ -74,7 +68,6 @@ export const BoatDetail = UU5.Common.VisualComponent.create({
           if (data) {
             let piers = data[0].value.data.itemList;
             let captains = data[1].value.data.itemList;
-            // let boats = data[2].value.data.itemList;
             return (
               <UU5.Bricks.Section {...this.getMainPropsToPass()}>
                 <UU5.Forms.ContextModal ref_={modal => (this._modal = modal)} />
