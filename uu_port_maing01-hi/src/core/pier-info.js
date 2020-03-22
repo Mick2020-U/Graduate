@@ -41,6 +41,12 @@ export const PierInfo = UU5.Common.VisualComponent.create({
     let res = await Calls.boatsById(query);
     return res.boats.itemList;
   },
+
+  async sortBoats() {
+    let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
+    let res = await Calls.boatsById(query);
+    return res.boats.itemList.sort((a, b) => (a.insurance > b.insurance ? 1 : -1));
+  },
   //@@viewOff:interface
 
   //@@viewOn:overriding
@@ -48,8 +54,9 @@ export const PierInfo = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   async _handleDelete(opt) {
-    await Calls.deleteBoatFromPier(opt.data);
-    await Calls.boatDelete(opt.data);
+    console.log(opt.data);
+    await Calls.pierUndock(opt.data.pierId);
+    // await Calls.boatDelete(opt.data);
   },
   //@@viewOff:private
 
@@ -58,11 +65,10 @@ export const PierInfo = UU5.Common.VisualComponent.create({
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
         <UU5.Common.DataManager onLoad={this.loadPier}>
-          {({ viewState, errorState, errorData, data, handleUpdate }) => {
+          {({ data }) => {
             if (data) {
-              let { code, state, slots, availableSlots } = data.pier;
+              let { code, slots, availableSlots } = data.pier;
               const busy = slots - availableSlots;
-              // console.log(slots, "slots");
               return (
                 <UU5.Bricks.Card>
                   <UU5.Bricks.Text>Pier # {<UU5.Bricks.Text content={code} />} </UU5.Bricks.Text>
@@ -81,7 +87,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
 
         <UU5.Common.ListDataManager
           onLoad={this.loadBoats}
-          onReload={this.loadBoats}
+          onReload={this.sortBoats}
           onCreate={Calls.create}
           onUpdate={Calls.update}
           onDelete={this._handleDelete}

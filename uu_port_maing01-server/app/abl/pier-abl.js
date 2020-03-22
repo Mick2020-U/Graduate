@@ -32,11 +32,11 @@ class PierAbl {
 
   async undock(awid, dtoIn) {
     let findPier = await this.dao.get(awid, dtoIn.id);
-    // if (!findPier) {
-    //   return {
-    //     message: "no pier"
-    //   };
-    // }
+    if (!findPier) {
+      return {
+        message: "no pier"
+      };
+    }
     dtoIn.availableSlots = findPier.availableSlots + 1;
     let dtoOut = {};
     try {
@@ -92,19 +92,6 @@ class PierAbl {
         };
       }
       let { availableSlots } = findPier;
-      // if (dtoIn.deleteBoat) {
-      //   dtoIn.availableSlots = findPier.availableSlots + 1;
-      //   let dtoOut = {};
-      //   try {
-      //     dtoOut = await this.dao.update({ ...dtoIn, awid });
-      //   } catch (e) {
-      //     if (e instanceof ObjectStoreError) {
-      //       console.log(e, "err");
-      //     }
-      //     throw e;
-      //   }
-      //   return { ...dtoOut };
-      // }
       if (availableSlots === 0) {
         return {
           message: "no free space"

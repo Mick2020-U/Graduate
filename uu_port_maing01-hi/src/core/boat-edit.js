@@ -76,14 +76,13 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
           ref_={dm => (this._dataManager = dm)}
           onLoad={Calls.loadAll}
           onReload={Calls.loadAll}
+          onSave={Calls.boatUpdate()}
           // onUpdate={Calls.update}
           data={{ code: "UU5.Bricks" }}
           pessimistic={this.state.pessimistic}
         >
           {({ viewState, errorState, errorData, data, handleUpdate }) => {
             if (data) {
-              // let boat = ;
-              // cons [[]]
               let piers = data[0].value.data.itemList;
               let captains = data[1].value.data.itemList;
               return (
@@ -99,7 +98,7 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
                         spacing={8}
                         onSave={this._onSave}
                         onLoad={Calls.pierList}
-                        onUpdate={this._onSave}
+                        // onUpdate={this._onSave}
                         values={this.state.boat}
                       >
                         <UU5.Forms.Text name={"code"} required={true} placeholder="code" size="m" />

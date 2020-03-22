@@ -56,7 +56,13 @@ export const BoatInfo = UU5.Common.VisualComponent.create({
                   <UU5.Bricks.Text>Boat Code {<UU5.Bricks.Text content={code} />} </UU5.Bricks.Text>
                   <UU5.Bricks.Text>Boat Type {<UU5.Bricks.Text content={boatType} />} </UU5.Bricks.Text>
                   <UU5.Bricks.Text>Insurance {<UU5.Bricks.Text content={insurance} />} </UU5.Bricks.Text>
-
+                  <Plus4U5.Bricks.Image
+                    style={{ display: "block", margin: "auto", padding: "2%", width: "50%", background: "#f5f5f5" }}
+                    src={
+                      "https://static01.nyt.com/images/2020/03/07/business/07wealth-01/06wealth-01-mediumSquareAt3X.jpg"
+                    }
+                    alt={"No-img"}
+                  />
                 </UU5.Bricks.Card>
               );
             } else {
