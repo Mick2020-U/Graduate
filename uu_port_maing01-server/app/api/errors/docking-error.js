@@ -8,6 +8,12 @@ const Update = {
   
 };
 
+const Create = {
+  UC_CODE: `${DOCKING_ERROR_PREFIX}create/`,
+  
+};
+
 module.exports = {
+  Create,
   Update
 };

@@ -56,66 +56,51 @@ export const BoatDetail = UU5.Common.VisualComponent.create({
   //@@viewOn:render
   render() {
     return (
-      <UU5.Common.DataManager
-        ref_={dm => (this._dataManager = dm)}
-        onLoad={Calls.loadAll}
-        onReload={Calls.loadAll}
-        // onUpdate={Calls.update}
-        data={{ code: "UU5.Bricks" }}
-        pessimistic={this.state.pessimistic}
-      >
-        {({ viewState, errorState, errorData, data, handleUpdate }) => {
-          if (data) {
-            let piers = data[0].value.data.itemList;
-            let captains = data[1].value.data.itemList;
-            return (
-              <UU5.Bricks.Section {...this.getMainPropsToPass()}>
-                <UU5.Forms.ContextModal ref_={modal => (this._modal = modal)} />
-                <UU5.Bricks.Div className={this.getClassName("container")}>
-                  <UU5.Common.Fragment>
-                    <UU5.Bricks.Div className="uu5-common-right"></UU5.Bricks.Div>
-                    <UU5.Forms.Form
-                      ref_={form => (this._form = form)}
-                      labelColWidth="xs-12 s-12 m-3 l-2 xl-2"
-                      inputColWidth="xs-12 s-12 m-8 l-9 xl-9"
-                      spacing={8}
-                      onSave={this._onSave}
-                      onLoad={Calls.pierList}
-                      // onCancel={onCancel}
-                      // values={initValue}
-                    >
-                      <UU5.Forms.Text name={"code"} required={true} placeholder="code" size="m" />
-                      <UU5.Forms.Select required={true} label="PierId" name="pierId">
-                        {piers &&
-                          piers.map((item, index) => {
-                            return <UU5.Forms.Select.Option content={item.code} key={item.id} value={item.id} />;
-                          })}
-                      </UU5.Forms.Select>
-                      <UU5.Forms.Select required={true} label="CaptainId" name="captainId">
-                        {captains &&
-                          captains.map((item, index) => {
-                            return <UU5.Forms.Select.Option content={item.name} key={item.id} value={item.id} />;
-                          })}
-                      </UU5.Forms.Select>
-                      <UU5.Forms.Select name="insurance" label="insurance" required={true}>
-                        <UU5.Forms.Select.Option value="true" />
-                        <UU5.Forms.Select.Option value="false" />
-                      </UU5.Forms.Select>
-                      <UU5.Forms.Select name="boatType" label="Type of Boat">
-                        <UU5.Forms.Select.Option content="yacht" value="1" />
-                        <UU5.Forms.Select.Option content="barga" value="2" />
-                      </UU5.Forms.Select>
-                      <UU5.Forms.Controls />
-                    </UU5.Forms.Form>
-                  </UU5.Common.Fragment>
-                </UU5.Bricks.Div>
-              </UU5.Bricks.Section>
-            );
-          } else {
-            return <UU5.Bricks.Loading />;
-          }
-        }}
-      </UU5.Common.DataManager>
+      <UU5.Bricks.Div {...this.getMainPropsToPass()}>
+        <UU5.Common.DataManager
+          ref_={dm => (this._dataManager = dm)}
+          onLoad={Calls.loadAll}
+          onReload={Calls.loadAll}
+          onUpdate={Calls.update}
+          data={{ code: "UU5.Bricks" }}
+          pessimistic={this.state.pessimistic}
+        >
+          {({ viewState, errorState, errorData, data, handleLoad, handleReload, handleUpdate }) => {
+            if (data) {
+              let piers = data[0].value.data.itemList;
+              let captains = data[1].value.data.itemList;
+              return (
+                <UU5.Forms.Form onSave={this._onSave}>
+                  <UU5.Forms.Text name="code" label="Code" placeholder="Code" required />
+                  <UU5.Forms.Select name="captainId" label="captainId" required={true}>
+                    {captains &&
+                      captains.map((item, index) => {
+                        return <UU5.Forms.Select.Option content={item.name} key={item.id} value={item.id} />;
+                      })}
+                  </UU5.Forms.Select>
+                  <UU5.Forms.Select name="pierId" label="PierId" required={true}>
+                    {piers &&
+                      piers.map((item, index) => {
+                        return <UU5.Forms.Select.Option content={item.code} key={item.id} value={item.id} />;
+                      })}
+                  </UU5.Forms.Select>
+                  <UU5.Forms.Select name="insurance" label="insurance" required={true}>
+                    <UU5.Forms.Select.Option value="true" />
+                    <UU5.Forms.Select.Option value="false" />
+                  </UU5.Forms.Select>
+                  <UU5.Forms.Select name="boatType" label="Type of Boat">
+                    <UU5.Forms.Select.Option content="yacht" value="1" />
+                    <UU5.Forms.Select.Option content="barga" value="2" />
+                  </UU5.Forms.Select>
+                  <UU5.Forms.Controls />
+                </UU5.Forms.Form>
+              );
+            } else {
+              return <UU5.Bricks.Loading />;
+            }
+          }}
+        </UU5.Common.DataManager>
+      </UU5.Bricks.Div>
     );
   }
   //@@viewOff:render

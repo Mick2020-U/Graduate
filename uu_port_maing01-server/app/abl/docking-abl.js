@@ -16,6 +16,10 @@ class DockingAbl {
     this.dao = DaoFactory.getDao("docking");
   }
 
+  async create(awid, dtoIn) {
+    
+  }
+
   async update(awid, dtoIn) {
     
   }

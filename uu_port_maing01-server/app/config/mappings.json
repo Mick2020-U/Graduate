@@ -110,6 +110,11 @@
         "realization": "api/controllers/PierController.undock",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "docking/create": {
+        "realization": "api/controllers/DockingController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

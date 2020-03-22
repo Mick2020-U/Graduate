@@ -30,7 +30,8 @@
       "boat/dock": ["Public"],
       "boat/undock": ["Public"],
       "pier/dock": ["Public"],
-      "pier/undock": ["Public"]
+      "pier/undock": ["Public"],
+      "docking/create": ["Public"]
     }
   }
 }

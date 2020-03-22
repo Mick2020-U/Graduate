@@ -14,7 +14,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
 
   //@@viewOn:statics
   statics: {
-    tagName: Config.TAG + "PierInfo",
+    tagName: Config.TAG + "Pier",
     classNames: {
       main: (props, state) => Config.Css.css`background: rgba(0, 0, 0, 0.15); padding: 8px; margin: 8px 0;`
     }
@@ -178,8 +178,8 @@ export const PierInfo = UU5.Common.VisualComponent.create({
                   </UU5.Bricks.Button>
                   <UU5.Bricks.Card className="list">
                     <UU5.Bricks.Text className="list-text">List of assigned Boats</UU5.Bricks.Text>
-                  </UU5.Bricks.Card >
-                  <UU5.Bricks.Row className="pier-row" >
+                  </UU5.Bricks.Card>
+                  <UU5.Bricks.Row className="pier-row">
                     {this.state.boats.map(item => (
                       <UU5.Bricks.Column colWidth="m-12 l-8 xl-6" key={item.id}>
                         <Boat data={item} handleDelete={handleDelete} handleReload={handleReload} />
