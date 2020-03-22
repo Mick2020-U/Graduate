@@ -49,13 +49,17 @@ export const PierInfo = UU5.Common.VisualComponent.create({
   async loadBoats() {
     let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
     let res = await Calls.boatsById(query);
+    this.setState(() => {
+      return {
+        boats: res.boats.itemList
+      };
+    });
     return res.boats.itemList;
   },
 
-  async sortByInsurance(opt) {
-    let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
-    let res = await Calls.boatsById(query);
-    let filtered = res.boats.itemList.sort((a, b) => (a.insurance > b.insurance ? 1 : -1));
+  async sortByInsurance() {
+    let state = [...this.state.boats];
+    let filtered = state.sort((a, b) => (a.insurance > b.insurance ? 1 : -1));
     this.setState(() => {
       return {
         boats: filtered
@@ -63,9 +67,8 @@ export const PierInfo = UU5.Common.VisualComponent.create({
     });
   },
   async sortByClass() {
-    let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
-    let res = await Calls.boatsById(query);
-    let filtered = res.boats.itemList.sort((a, b) => (a.boatType > b.boatType ? 1 : -1));
+    let state = [...this.state.boats];
+    let filtered = state.sort((a, b) => (a.boatType > b.boatType ? 1 : -1));
     this.setState(() => {
       return {
         boats: filtered
@@ -73,9 +76,8 @@ export const PierInfo = UU5.Common.VisualComponent.create({
     });
   },
   async sortByCode() {
-    let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
-    let res = await Calls.boatsById(query);
-    let filtered = res.boats.itemList.sort((a, b) => (a.code > b.code ? 1 : -1));
+    let state = [...this.state.boats];
+    let filtered = state.sort((a, b) => (a.code > b.code ? 1 : -1));
     this.setState(() => {
       return {
         boats: filtered
@@ -125,7 +127,7 @@ export const PierInfo = UU5.Common.VisualComponent.create({
 
         <UU5.Common.ListDataManager
           onLoad={this.loadBoats}
-          onReload={this.sortByInsurance}
+          onReload={this.loadBoats}
           onCreate={Calls.create}
           onUpdate={Calls.update}
           onDelete={this._handleDelete}
