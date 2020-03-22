@@ -54,9 +54,8 @@ export const PierInfo = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   async _handleDelete(opt) {
-    console.log(opt.data);
     await Calls.pierUndock(opt.data.pierId);
-    // await Calls.boatDelete(opt.data);
+    await Calls.boatDelete(opt.data);
   },
   //@@viewOff:private
 

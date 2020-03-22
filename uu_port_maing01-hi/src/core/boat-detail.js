@@ -3,7 +3,7 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
 import Calls from "../calls";
-import Port from "../routes/port";
+import BoatInfo from "./boat-info";
 //@@viewOff:imports
 
 export const BoatDetail = UU5.Common.VisualComponent.create({
@@ -40,11 +40,12 @@ export const BoatDetail = UU5.Common.VisualComponent.create({
   async _onSave(opt) {
     let pierAvailable = await Calls.pierDock(opt.values.pierId);
     if (!pierAvailable.pier.message) {
-      let boat = await Calls.boatCreate(opt.values);
-      boat &&
+      let result = await Calls.boatCreate(opt.values);
+      let id = result.boat.id;
+      result &&
         UU5.Environment.setRoute({
-          component: <Port />,
-          url: { useCase: "port", parameters: {} }
+          component: <BoatInfo data={result.boat} />,
+          url: { useCase: "boatInfo", parameters: { id } }
         });
     } else {
       alert("No free Space");
