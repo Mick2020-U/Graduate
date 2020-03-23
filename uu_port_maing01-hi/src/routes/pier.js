@@ -29,6 +29,12 @@ export const Pier = UU5.Common.VisualComponent.create({
   //@@viewOff:getDefaultProps
 
   //@@viewOn:reactLifeCycle
+  getInitialState() {
+    const id = this.props.item.id;
+    return {
+      id
+    };
+  },
   //@@viewOff:reactLifeCycle
 
   //@@viewOn:interface
@@ -52,7 +58,7 @@ export const Pier = UU5.Common.VisualComponent.create({
             content={"Move to pier"}
             onClick={() => {
               UU5.Environment.setRoute({
-                component: <PierInfo data={this.props} />,
+                component: <PierInfo data={this.props} pierId={this.state.id} />,
                 url: { useCase: "pierInfo", parameters: { id } }
               });
             }}

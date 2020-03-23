@@ -36,23 +36,11 @@ class BoatAbl {
     this.dao = DaoFactory.getDao("boat");
   }
 
-  async undock(awid, dtoIn) {
+  async undock(awid, dtoIn) {}
 
-  }
-
-  async dock(awid, dtoIn) {
-
-  }
+  async dock(awid, dtoIn) {}
 
   async delete(awid, dtoIn) {
-    // let validationResult = this.validator.validate("pierDeleteDtoInType", dtoIn);
-    //
-    // let uuAppErrorMap = ValidationHelper.processValidationResult(
-    //   dtoIn,
-    //   validationResult,
-    //   WARNINGS.deletePier.unsupportedKeys.code,
-    //   Errors.DeletePier.InvalidDtoIn
-    // );
     let dtoOut = {};
     try {
       await this.dao.delete(awid, dtoIn.id);
@@ -62,20 +50,14 @@ class BoatAbl {
       }
       throw e;
     }
-    // dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
   }
-
-  // async detail(awid, dtoIn) {
-  //
-  // }
 
   async get(awid, dtoIn) {
     return await this.dao.get(awid, dtoIn.id);
   }
 
   async listByPier(awid, dtoIn) {
-    let validationResult = this.validator.validate("boatListDtoInType", dtoIn);
     let dtoOut = {};
     let sort = dtoIn.hasOwnProperty("sortBy") ? (dtoIn.sortBy === "code" ? "code" : "time") : "code";
     let order = dtoIn.hasOwnProperty("order") ? (dtoIn.order === "asc" ? 1 : -1) : 1;

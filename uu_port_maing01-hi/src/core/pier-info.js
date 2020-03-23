@@ -29,12 +29,14 @@ export const PierInfo = UU5.Common.VisualComponent.create({
 
   //@@viewOn:reactLifeCycle
   getInitialState() {
+    const id = this.props.pierId || this.props.data.id;
     return {
+      id,
       boats: []
     };
   },
   async componentDidMount() {
-    let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
+    let query = this.state.id;
     let response = await Calls.boatsById(query);
     this.setState({ boats: response.boats.itemList });
   },
@@ -42,12 +44,12 @@ export const PierInfo = UU5.Common.VisualComponent.create({
 
   //@@viewOn:interface
   async loadPier() {
-    let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
+    let query = this.state.id;
     //@@viewOff:imports
     return await Calls.pierInfo(query);
   },
   async loadBoats() {
-    let query = this.props.params.id || this.props.data.item.id || this.props.params.url.parameters.id;
+    let query = this.state.id;
     let res = await Calls.boatsById(query);
     this.setState(() => {
       return {

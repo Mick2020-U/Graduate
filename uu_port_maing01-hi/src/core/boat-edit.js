@@ -61,6 +61,10 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
       if (!pierAvailable.pier.message) {
         await Calls.pierUndock(this.state.boat.pierId);
         await Calls.boatUpdate(query);
+        UU5.Environment.setRoute({
+          component: <BoatInfo data={this.props} />,
+          url: { useCase: "boatInfo", parameters: { id: this.state.boat.id } }
+        });
       } else {
         alert("No free Space");
       }
