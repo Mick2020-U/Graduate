@@ -34,7 +34,8 @@ export const BoatInfo = UU5.Common.VisualComponent.create({
   async _onLoad() {
     let query = this.props.params.id || this.props.params.url.parameters.id;
     let res = await Calls.boatInfo(query);
-    return res.boat;
+    let pierInfo = await Calls.pierInfo(res.boat.pierId);
+    return { ...res.boat, pier: pierInfo.pier.code };
   },
   //@@viewOff:interface
 
@@ -51,16 +52,26 @@ export const BoatInfo = UU5.Common.VisualComponent.create({
         <UU5.Common.DataManager onLoad={this._onLoad}>
           {({ viewState, errorState, errorData, data, handleUpdate }) => {
             if (data) {
-              let { code, insurance, boatType } = data;
+              let { code, insurance, boatType, pier, id } = data;
               return (
                 <UU5.Bricks.Card className="boat-card">
                   <UU5.Bricks.Section className="boat-section">
-                    <UU5.Bricks.Text className ="boat-info-text" >Boat Code {<UU5.Bricks.Text content={code} />} </UU5.Bricks.Text>
-                    <UU5.Bricks.Text className ="boat-info-text" >Boat Type {<UU5.Bricks.Text content={boatType} />} </UU5.Bricks.Text>
-                    <UU5.Bricks.Text className ="boat-info-text" >Insurance {<UU5.Bricks.Text content={insurance} />} </UU5.Bricks.Text>
+                    <UU5.Bricks.Text className="boat-info-text">
+                      Boat Code {<UU5.Bricks.Text content={code} />}
+                    </UU5.Bricks.Text>
+                    <UU5.Bricks.Text className="boat-info-text">
+                      Boat Type {<UU5.Bricks.Text content={boatType} />}
+                    </UU5.Bricks.Text>
+                    <UU5.Bricks.Text className="boat-info-text">
+                      Insurance {<UU5.Bricks.Text content={insurance} />}
+                    </UU5.Bricks.Text>
+                    <UU5.Bricks.Text className="boat-info-text">
+                      Docked at Pier: {<UU5.Bricks.Text content={pier} />}
+                    </UU5.Bricks.Text>
                   </UU5.Bricks.Section>
 
-                  <Plus4U5.Bricks.Image className="boat-img"
+                  <Plus4U5.Bricks.Image
+                    className="boat-img"
                     src={"https://cdn3.iconfinder.com/data/icons/vacation-4/32/vacation_34-512.png"}
                     alt={"No-img"}
                   />

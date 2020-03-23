@@ -23,7 +23,8 @@ const boatUpdateDtoInType = shape({
   id: mongoId().isRequired(),
   code: code().isRequired(),
   boatType: oneOf(["1","2"]).isRequired(),
-  captainId: id().isRequired()
+  captainId: id().isRequired(),
+  pier: uu5String(255)
 });
 
 

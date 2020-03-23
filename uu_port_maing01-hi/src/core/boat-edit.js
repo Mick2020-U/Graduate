@@ -66,11 +66,11 @@ export const BoatEdit = UU5.Common.VisualComponent.create({
       }
     } else {
       await Calls.boatUpdate(query);
+      UU5.Environment.setRoute({
+        component: <BoatInfo data={this.props} />,
+        url: { useCase: "boatInfo", parameters: { id: this.state.boat.id } }
+      });
     }
-    UU5.Environment.setRoute({
-      component: <BoatInfo data={this.props} />,
-      url: { useCase: "boatInfo", parameters: { id: this.state.boat.id } }
-    });
   },
   //@@viewOff:private
 
