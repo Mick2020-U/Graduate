@@ -52,7 +52,8 @@ export const BoatInfo = UU5.Common.VisualComponent.create({
         <UU5.Common.DataManager onLoad={this._onLoad}>
           {({ viewState, errorState, errorData, data, handleUpdate }) => {
             if (data) {
-              let { code, insurance, boatType, pier, id } = data;
+              let { code, insurance, boatType, pier, dockingTime } = data;
+              let time = dockingTime.map(item => item.substring(0, 10));
               return (
                 <UU5.Bricks.Card className="boat-card">
                   <UU5.Bricks.Section className="boat-section">
@@ -68,8 +69,9 @@ export const BoatInfo = UU5.Common.VisualComponent.create({
                     <UU5.Bricks.Text className="boat-info-text">
                       Docked at Pier: {<UU5.Bricks.Text content={pier} />}
                     </UU5.Bricks.Text>
+                    <UU5.Bricks.Text className="boat-info-text"> Docked From {time[0]} </UU5.Bricks.Text>
+                    <UU5.Bricks.Text className="boat-info-text"> To  {time[1]} </UU5.Bricks.Text>
                   </UU5.Bricks.Section>
-
                   <Plus4U5.Bricks.Image
                     className="boat-img"
                     src={"https://cdn3.iconfinder.com/data/icons/vacation-4/32/vacation_34-512.png"}

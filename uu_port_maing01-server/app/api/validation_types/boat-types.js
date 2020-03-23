@@ -6,6 +6,7 @@ const boatCreateDtoInType = shape({
   captainId: id().isRequired(),
   state: oneOf(["initial", "active", "final"]),
   insurance: oneOf(["true", "false"]).isRequired(),
+  dockingTime: array(uu5String(255)).isRequired(),
 });
 
 const boatListDtoInType = shape({

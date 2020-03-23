@@ -92,6 +92,13 @@ export const BoatDetail = UU5.Common.VisualComponent.create({
                     <UU5.Forms.Select.Option content="yacht" value="1" />
                     <UU5.Forms.Select.Option content="barga" value="2" />
                   </UU5.Forms.Select>
+                  <UU5.Forms.DateTimeRangePicker
+                    name="dockingTime"
+                    required={true}
+                    controlled={true}
+                    label="Docking Time"
+                    value={["23.3.2020", "24.3.2020"]}
+                  />
                   <UU5.Forms.Controls />
                 </UU5.Forms.Form>
               );
